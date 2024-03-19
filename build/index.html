@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./app.js" defer></script>
+    <link rel="stylesheet" href="./handStyle.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800;9..40,900;9..40,1000&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body
+    class="flex justify-center items-center bg-[#e4efff] sm:h-auto lg:h-screen font-DmSans overflow-y-auto relative"
+  >
+    <div
+      class="lg:w-2/3 lg:h-[35rem] w-full h-full lg:rounded-3xl bg-white flex lg:flex-row flex-col overflow-hidden lg:min-w-[840px]"
+      id="container"
+    >
+      <div
+        class="bg-white2 lg:h-full sm:px-4 w-full flex flex-row lg:flex-col items-center p-2 px-4 relative sm:justify-between lg:w-32 lg:p-0"
+      >
+        <div
+          class="flex flex-row lg:flex-col w-full sm:w-1/3 h-full items-center justify-between sm:justify-normal lg:w-full lg:h-[unset]"
+        >
+          <img
+            src="./images/profile-pic.jpg"
+            class="rounded-full sm:w-20 sm:h-20 lg:h-20 lg:w-20 w-14 h-14 object-cover lg:mt-7 lg:mb-1"
+          />
+          <h5
+            class="sm:text-xl text-base font-semibold text-grayText lg:mb-6 sm:ml-4 lg:ml-0"
+            id="userName"
+            spellcheck="false"
+          >
+            Alicia
+          </h5>
+        </div>
+        <div
+          class="lg:flex-col items-center sm:relative sm:right-0 sm:[left:unset] sm:bg-transparent fixed bottom-0 right-0 left-0 bg-[#cfcece] px-3 flex-row flex z-30 h-14 lg:h-full sm:w-2/3 lg:w-full lg:p-0 flex-nowrap overflow-auto w-screen"
+        >
+          <ul
+            class="font-DmSans text-grayText font-semibold text-center lg:w-full h-2/3 text-sm flex flex-row lg:flex-col lg:h-[unset]"
+            id="pagesUl"
+          >
+            <li
+              class="sm:mr-2 mr-3 lg:border-none lg:rounded-none py-2 rounded-xl border border-solid border-borderGray px-3 lg:w-full w-auto hover:bg-white cursor-pointer transition-all duration-300 activeli pageElem"
+              id="mainLi"
+            >
+              Home
+            </li>
+          </ul>
+          <button
+            class="font-DmSans text-grayText font-semibold text-sm opacity-55 lg:mt-2 hover:opacity-80 ml-3 lg:ml-0 lg:text-xs text-nowrap lg:mb-5"
+            id="addBtn"
+          >
+            + Add a page
+          </button>
+        </div>
+      </div>
+      <div
+        class="bg-white h-full sm:h-[561px] lg:h-full w-full flex flex-col px-8"
+      >
+        <div
+          class="items-center justify-between flex w-full flex-row pt-7 pb-5 px-0 sm:px-4"
+        >
+          <div class="flex flex-row items-center">
+            <svg
+              width="30px"
+              height="30px"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g id="SVGRepo_bgCarrier" stroke-width="0" />
+              <g
+                id="SVGRepo_tracerCarrier"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <g id="SVGRepo_iconCarrier">
+                <path
+                  d="M11 6L21 6.00072M11 12L21 12.0007M11 18L21 18.0007M3 11.9444L4.53846 13.5L8 10M3 5.94444L4.53846 7.5L8 4M4.5 18H4.51M5 18C5 18.2761 4.77614 18.5 4.5 18.5C4.22386 18.5 4 18.2761 4 18C4 17.7239 4.22386 17.5 4.5 17.5C4.77614 17.5 5 17.7239 5 18Z"
+                  stroke="#1c6dd0"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </g>
+            </svg>
+            <h1
+              class="text-darkBlue font-bold text-xl sm:text-2xl lg:text-3xl ml-2"
+            >
+              To-Do List
+            </h1>
+          </div>
+          <div class="flex flex-col items-end justify-center">
+            <h2 id="dayElem" class="text-grayText text-sm sm:text-xl font-bold">
+              Wednesday
+            </h2>
+            <h4
+              id="timeElem"
+              class="text-Vsm sm:text-sm text-grayText font-bold"
+            >
+              10 March 2024
+            </h4>
+          </div>
+        </div>
+        <div class="w-full h-[1px] bg-borderGray rounded-full shadow-custom">
+          ‍
+        </div>
+        <div
+          class="flex flex-col sm:flex-row items-center w-full h-full gap-7 p-5 pt-8 mb-16 sm:mb-0 relative"
+        >
+          <div
+            class="h-1/2 sm:h-full border max-w-80 lg:min-w-48 sm:min-w-44 border-borderGray border-solid rounded-3xl shadow-custom flex-1 flex flex-col overflow-hidden w-full"
+          >
+            <div
+              class="relative w-full border-b border-b-borderGray border-solid py-2 pl-4 flex flex-col justify-center items-start"
+            >
+              <h5 class="text-grayText text-xl font-semibold">To-do</h5>
+              <i
+                class="text-grayText text-[12px] -mt-1 font-semibold opacity-65"
+                id="countOfTasks"
+                >1 Tasks</i
+              >
+              <button
+                type="button"
+                id="addNewTodoBtn"
+                class="absolute right-6 -bottom-[14px] bg-darkBlue rounded-full w-8 h-8 overflow-hidden flex justify-center items-center hover:bg-[#1961b8] transition-all duration-200"
+              >
+                <img src="./images/addP.png" class="w-5 h-5" />
+              </button>
+            </div>
+            <ul
+              class="flex flex-col w-full h-[352px] items-center px-2 py-2 gap-1 overflow-y-auto"
+              id="toDoUl"
+            >
+              <li
+                class="w-full bg-lightBlue rounded-md shadow-custom4Li px-3 py-2 flex items-center liElem"
+              >
+                <label class="b-contain">
+                  <input type="checkbox" class="cursor-pointer mr-2" />
+                  <span class="text-grayText font-semibold text-base">Gym</span>
+                  <div class="b-input"></div>
+                </label>
+              </li>
+            </ul>
+          </div>
+          <div
+            class="h-1/2 max-w-80 lg:min-w-48 sm:min-w-44 sm:h-full border border-borderGray border-solid rounded-3xl shadow-custom flex-1 flex flex-col overflow-hidden w-full"
+          >
+            <div
+              class="relative w-full border-b border-b-borderGray border-solid py-2 pl-4 flex flex-col justify-center items-start"
+            >
+              <h5 class="text-greenBlue text-xl font-semibold">Completed</h5>
+              <i
+                class="text-grayText text-[12px] -mt-1 font-semibold opacity-65"
+                id="countOfCompleted"
+                >0 Tasks</i
+              >
+            </div>
+            <ul
+              class="flex flex-col w-full h-[352px] items-center px-2 py-2 gap-1 overflow-y-auto"
+              id="completedUl"
+            ></ul>
+          </div>
+          <div
+            class="sm:h-full flex-1 flex flex-col justify-between sm:pt-9 w-full max-w-80 lg:min-w-48 sm:min-w-44"
+          >
+            <div
+              class="flex flex-col justify-center items-center gap-y-2 mb-8 w-full sm:mb-0"
+            >
+              <b class="text-grayText">You done :</b>
+              <div
+                class="w-full h-6 bg-borderGray rounded-md relative overflow-hidden"
+              >
+                <span
+                  class="absolute top-1/2 transform -translate-y-1/2 left-2 font-DmSans font-semibold text-white text-sm"
+                  id="progressPer"
+                  >0 %</span
+                >
+                <span
+                  class="h-full block w-0 bg-darkBlue transition-all duration-300"
+                  id="progressBg"
+                ></span>
+              </div>
+            </div>
+            <div
+              class="border pb-2 sm:pb-0 border-borderGray border-solid rounded-3xl shadow-custom flex flex-col opacity-70 overflow-hidden"
+            >
+              <div
+                class="relative w-full border-b border-b-borderGray border-solid py-2 pl-4 flex flex-col justify-center items-start"
+              >
+                <h5 class="text-grayText text-base font-semibold">
+                  Tomorrow's To-do
+                </h5>
+                <i
+                  class="text-grayText text-[12px] -mt-1 font-semibold opacity-65"
+                  id="countOfTmmrwTasks"
+                  >0 Tasks</i
+                >
+                <button
+                  type="button"
+                  id="addNewTodo4TmmrwBtn"
+                  class="absolute right-6 -bottom-[14px] bg-darkBlue rounded-full w-8 h-8 overflow-hidden flex justify-center items-center hover:bg-[#1961b8] transition-all duration-200"
+                >
+                  <img src="./images/addP.png" class="w-5 h-5" />
+                </button>
+              </div>
+              <ul
+                class="flex flex-col w-full h-[206px] overflow-y-auto items-center px-2 py-2 gap-1"
+                id="tmmrwToDoUl"
+              ></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!------------------------------------ Page modul ------------------------------------>
+    <div
+      id="backdropDiv-Page"
+      class="w-screen h-screen bg-transparent backdrop-blur-[2px] absolute top-0 right-0 hidden justify-center items-center z-30"
+    >
+      <div
+        style="box-shadow: #cae2ff 0px 0px 6px"
+        class="lg:w-[50rem] px-7 py-4 lg:py-6 rounded-2xl flex flex-col sm:flex-row items-center justify-center bg-lightBlue popup w-[80vw] sm:w-[unset]"
+        id="modul"
+      >
+        <label class="font-semibold text-base lg:text-xl text-grayText"
+          >Enter your page's name :</label
+        >
+        <input
+          type="text"
+          placeholder="For example: Friends"
+          class="bg-white2 lg:text-base text-sm py-[2px] px-3 lg:py-1 font-DmSans rounded-lg sm:ml-4 focus:outline-none sm:mr-2 my-3 w-[50vw] sm:w-[unset]"
+          id="inputNamePage"
+        />
+        <div class="flex flex-row items-center">
+          <img
+            src="./images/arrowBtn.png"
+            class="w-8 h-8 cursor-pointer rounded-full hover:bg-darkBlue transition-all duration-200 mr-1"
+            id="addNamePageBtn"
+          />
+          <img
+            src="./images/closeBtn.png"
+            class="w-[30px] h-[30px] border-2 border-solid border-[#FF0E0EB5] transition-all duration-200 rounded-full cursor-pointer hover:bg-red-100"
+            id="closeModulBoxBtn"
+          />
+        </div>
+      </div>
+    </div>
+    <!------------------------------------------------------------------------------------>
+    <!------------------------------------ To-Do modul ------------------------------------>
+    <div
+      id="backdropDiv-toDo"
+      class="w-screen h-screen bg-transparent backdrop-blur-[2px] absolute top-0 right-0 hidden justify-center items-center z-30"
+    >
+      <div
+        style="box-shadow: #cae2ff 0px 0px 6px"
+        class="lg:w-[50rem] px-7 py-4 lg:py-6 rounded-2xl flex flex-col sm:flex-row items-center justify-center bg-lightBlue popup w-[80vw] sm:w-[unset]"
+        id="toDoModul"
+      >
+        <label class="font-semibold text-xl text-grayText"
+          >Enter your new To-Do's name :</label
+        >
+        <input
+          type="text"
+          placeholder="For example: Gym"
+          class="bg-white2 lg:text-base text-sm py-[2px] px-3 lg:py-1 font-DmSans rounded-lg sm:ml-4 focus:outline-none sm:mr-2 my-3 w-[50vw] sm:w-[unset]"
+          id="inputNewToDo"
+        />
+        <div class="flex flex-row items-center">
+          <img
+            src="./images/arrowBtn.png"
+            class="w-8 h-8 cursor-pointer rounded-full hover:bg-darkBlue transition-all duration-200 mr-1"
+            id="applyNewToDo"
+          />
+          <img
+            src="./images/closeBtn.png"
+            class="w-[30px] h-[30px] border-2 border-solid border-[#FF0E0EB5] transition-all duration-200 rounded-full cursor-pointer hover:bg-red-100"
+            id="closeToDoModulBoxBtn"
+          />
+        </div>
+      </div>
+    </div>
+    <!------------------------------------------------------------------------------------>
+    <!-------------------------------- Tmmrw To-Do modul --------------------------------->
+    <div
+      id="backdropDiv-tmmrwTodo"
+      class="w-screen h-screen bg-transparent backdrop-blur-[2px] absolute bottom-0 right-0 hidden justify-center items-center z-30"
+    >
+      <div
+        style="box-shadow: #cae2ff 0px 0px 6px"
+        class="lg:w-[50rem] px-7 py-4 lg:py-6 rounded-2xl flex flex-col sm:flex-row items-center justify-center bg-lightBlue popup w-[80vw] sm:w-[unset]"
+        id="tmmrwToDoModul"
+      >
+        <label class="font-semibold text-xl text-grayText"
+          >Enter your new Tomorrow To-Do's name :</label
+        >
+        <input
+          type="text"
+          placeholder="ex: Water plants"
+          class="bg-white2 lg:text-base text-sm py-[2px] px-3 lg:py-1 font-DmSans rounded-lg sm:ml-4 focus:outline-none sm:mr-2 my-3 w-[50vw] sm:w-[unset]"
+          autofocus
+          id="inputTmmrwNewToDo"
+        />
+        <div class="flex flex-row items-center">
+          <img
+            src="./images/arrowBtn.png"
+            class="w-8 h-8 cursor-pointer rounded-full hover:bg-darkBlue transition-all duration-200 mr-1"
+            id="applyTmmrwNewToDo"
+          />
+          <img
+            src="./images/closeBtn.png"
+            class="w-[30px] h-[30px] border-2 border-solid border-[#FF0E0EB5] transition-all duration-200 rounded-full cursor-pointer hover:bg-red-100"
+            id="closeTmmrwToDoModulBoxBtn"
+          />
+        </div>
+      </div>
+    </div>
+    <!------------------------------------------------------------------------------------>
+  </body>
+</html>

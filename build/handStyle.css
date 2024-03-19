@@ -1,0 +1,179 @@
+.popup{
+    animation: openModul 1s ease 0s 1 normal none;
+  }
+  
+@keyframes openModul {
+    0% {
+      transform: scale(0.5);
+    }
+  
+    100% {
+      transform: scale(1);
+    }
+  }
+
+.shakeInput {
+    animation: shakeAni 1s ease-out 0s 1 normal none;
+}
+
+@keyframes shakeAni {
+    0%,
+    100% {
+      transform: rotate(0deg);
+      transform-origin: 50% 100%;
+    }
+  
+    10% {
+      transform: rotate(2deg);
+    }
+  
+    20%,
+    40%,
+    60% {
+      transform: rotate(-4deg);
+    }
+  
+    30%,
+    50%,
+    70% {
+      transform: rotate(4deg);
+    }
+  
+    80% {
+      transform: rotate(-2deg);
+    }
+  
+    90% {
+      transform: rotate(2deg);
+    }
+  }
+
+.activeli {
+    background-color: white;
+}
+
+.b-contain *,
+.b-contain *::before,
+.b-contain *::after {
+  box-sizing: content-box !important;
+}
+
+.b-contain input {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+
+.b-contain {
+  display: table;
+  position: relative;
+  padding-left:25px;
+  cursor: pointer;
+}
+
+.b-contain input[type="checkbox"] ~ .b-input {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  height: 1rem;
+  width: 1rem;
+  background: rgb(245, 245, 245);
+  transition: background 250ms;
+  border: 1px solid #94a3b8;
+  border-radius: 0.29rem;
+}
+
+.b-contain input[type="checkbox"] ~ .b-input::after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 5px;
+  top: 1px;
+  width: 0.3rem;
+  height: 0.6rem;
+  border: solid #ffffff;
+  border-width: 0 2px 2px 0;
+  transition: background 250ms;
+  transform: rotate(45deg);
+}
+
+.b-contain input[type="checkbox"]:disabled ~ .b-input::after {
+  border-color: #ffffff;
+}
+
+.b-contain input:checked ~ .b-input::after {
+  display: block;
+}
+
+.b-contain:hover input[type="checkbox"]:not([disabled]) ~ .b-input,
+.b-contain input[type="checkbox"]:focus ~ .b-input {
+  background: #e2e8f0;
+  border-color: rgb(222, 222, 222);
+}
+
+.b-contain:hover input[type="radio"]:not([disabled]) ~ .b-input,
+.b-contain input[type="radio"]:focus ~ .b-input {
+  background: #e2e8f0;
+  border-color: #64748b;
+}
+
+.b-contain input:focus ~ .b-input {
+  box-shadow: 0 0 0 2px #60a5fa;
+}
+
+.b-contain input[type="checkbox"]:checked ~ .b-input {
+  background: #34ceb9;
+  border-color: rgb(222, 222, 222);
+}
+
+.b-contain input[type="checkbox"]:disabled ~ .b-input,
+.b-contain input[type="radio"]:disabled ~ .b-input {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.b-contain:hover input[type="checkbox"]:not([disabled]):checked ~ .b-input,
+.b-contain input[type="checkbox"]:checked:focus ~ .b-input {
+  background: rgb(31, 135, 232);
+  border-color: rgba(0, 0, 0, 0);
+}
+
+/* ----------------------scrollbar ------------------------ */
+
+/* Firefox (uncomment to work in Firefox, although other properties will not work!)  */
+/** {
+  scrollbar-width: thin;
+  scrollbar-color: #E4E4E4 #F7F7F7;
+}*/
+
+/* Chrome, Edge and Safari */
+*::-webkit-scrollbar {
+  height: 4px;
+  width: 4px;
+}
+*::-webkit-scrollbar-track {
+  border-radius: 4px;
+  background-color: #F7F7F7;
+}
+
+*::-webkit-scrollbar-track:hover {
+  background-color: #EDEDED;
+}
+
+*::-webkit-scrollbar-track:active {
+  background-color: #E4E4E4;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: #E4E4E4;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #CECECE;
+}
+
+*::-webkit-scrollbar-thumb:active {
+  background-color: #CCCCCC;
+}

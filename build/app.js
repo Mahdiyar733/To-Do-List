@@ -98,9 +98,7 @@ setInterval(()=>{
 addPageBtn.addEventListener('click', () =>{
     backdropDivPage.classList.add('flex')
     backdropDivPage.classList.remove('hidden')
-    body.scrollTop = 0
-    $.documentElement.scrollTop = 0
-    body.classList.add('overflow-y-hidden')
+    document.documentElement.add('overflow-y-hidden')
     inputNamePage.focus()
 })
 
@@ -109,7 +107,7 @@ addNewTodoBtn.addEventListener('click', () =>{
     backdropDivTodo.classList.remove('hidden')
     body.scrollTop = 0
     $.documentElement.scrollTop = 0
-    body.classList.add('overflow-y-hidden')
+    document.documentElement.add('overflow-y-hidden')
     inputNewToDo.focus()
 })
 
@@ -117,7 +115,7 @@ addNewToDoTmmrwBtn.addEventListener('click', () =>{
     window.scrollBy(0, window.innerHeight)
     backdropDivTmmrwTodo.classList.add('flex')
     backdropDivTmmrwTodo.classList.remove('hidden')
-    document.body.classList.add('overflow-y-hidden')
+    document.documentElement.add('overflow-y-hidden')
     setTimeout(()=>{
         inputTmmrwNewToDo.focus()
     },500)
@@ -275,7 +273,7 @@ tmmrwToDoUl.addEventListener('click', (e)=>{
 function closeModulFnc() {
     backdropDivPage.classList.add('hidden');
     backdropDivPage.classList.remove('flex');
-    body.classList.remove('overflow-y-hidden')
+    document.documentElement.classList.remove('overflow-y-hidden')
     inputNamePage.classList.remove('shakeInput')
     inputNamePage.style.border = 'none'
     inputNamePage.value = ''
@@ -284,7 +282,7 @@ function closeModulFnc() {
 function closeToDoModulFnc() {
     backdropDivTodo.classList.add('hidden');
     backdropDivTodo.classList.remove('flex');
-    body.classList.remove('overflow-y-hidden')
+    document.documentElement.classList.remove('overflow-y-hidden')
     inputNewToDo.classList.remove('shakeInput')
     inputNewToDo.style.border = 'none'
     inputNewToDo.value = ''
@@ -293,7 +291,7 @@ function closeToDoModulFnc() {
 function closeTmmrwToDoModulBoxFnc() {
     backdropDivTmmrwTodo.classList.add('hidden');
     backdropDivTmmrwTodo.classList.remove('flex');
-    body.classList.remove('overflow-y-hidden')
+    document.documentElement.classList.remove('overflow-y-hidden')
     inputTmmrwNewToDo.classList.remove('shakeInput')
     inputTmmrwNewToDo.style.border = 'none'
     inputTmmrwNewToDo.value = ''

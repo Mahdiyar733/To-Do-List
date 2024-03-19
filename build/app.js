@@ -105,8 +105,6 @@ addPageBtn.addEventListener('click', () =>{
 addNewTodoBtn.addEventListener('click', () =>{
     backdropDivTodo.classList.add('flex')
     backdropDivTodo.classList.remove('hidden')
-    body.scrollTop = 0
-    $.documentElement.scrollTop = 0
     document.documentElement.add('overflow-y-hidden')
     inputNewToDo.focus()
 })

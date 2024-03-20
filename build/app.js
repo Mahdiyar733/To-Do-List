@@ -97,20 +97,22 @@ setInterval(()=>{
 
 
 addPageBtn.addEventListener('click', () =>{
+    window.scrollTo(0,0)
     backdropDivPage.classList.add('flex')
     backdropDivPage.classList.remove('hidden')
-    window.scrollTo(0,0)
     document.documentElement.classList.add('overflow-y-hidden')
+    body.classList.add('overflow-y-hidden')
     setTimeout(()=>{
         inputNamePage.focus()
     }, 700)
 })
 
 addNewTodoBtn.addEventListener('click', () =>{
+    window.scrollTo(0,0)
     backdropDivTodo.classList.add('flex')
     backdropDivTodo.classList.remove('hidden')
-    window.scrollTo(0,0)
     document.documentElement.classList.add('overflow-y-hidden')
+    body.classList.add('overflow-y-hidden')
     setTimeout(()=>{
         inputNewToDo.focus()
     }, 700)
@@ -121,6 +123,7 @@ addNewToDoTmmrwBtn.addEventListener('click', () =>{
     backdropDivTmmrwTodo.classList.add('flex')
     backdropDivTmmrwTodo.classList.remove('hidden')
     document.documentElement.add('overflow-y-hidden')
+    body.classList.add('overflow-y-hidden')
     setTimeout(()=>{
         inputTmmrwNewToDo.focus()
     },500)
@@ -279,6 +282,7 @@ function closeModulFnc() {
     backdropDivPage.classList.add('hidden');
     backdropDivPage.classList.remove('flex');
     document.documentElement.classList.remove('overflow-y-hidden')
+    body.classList.remove('overflow-y-hidden')
     inputNamePage.classList.remove('shakeInput')
     inputNamePage.style.border = 'none'
     inputNamePage.value = ''
@@ -288,6 +292,7 @@ function closeToDoModulFnc() {
     backdropDivTodo.classList.add('hidden');
     backdropDivTodo.classList.remove('flex');
     document.documentElement.classList.remove('overflow-y-hidden')
+    body.classList.remove('overflow-y-hidden')
     inputNewToDo.classList.remove('shakeInput')
     inputNewToDo.style.border = 'none'
     inputNewToDo.value = ''
@@ -297,6 +302,7 @@ function closeTmmrwToDoModulBoxFnc() {
     backdropDivTmmrwTodo.classList.add('hidden');
     backdropDivTmmrwTodo.classList.remove('flex');
     document.documentElement.classList.remove('overflow-y-hidden')
+    body.classList.remove('overflow-y-hidden')
     inputTmmrwNewToDo.classList.remove('shakeInput')
     inputTmmrwNewToDo.style.border = 'none'
     inputTmmrwNewToDo.value = ''

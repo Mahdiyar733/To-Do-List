@@ -111,8 +111,8 @@ addNewTodoBtn.addEventListener('click', () =>{
     window.scrollTo(0,0)
     backdropDivTodo.classList.add('flex')
     backdropDivTodo.classList.remove('hidden')
-    document.documentElement.classList.add('overflow-y-hidden')
-    body.classList.add('overflow-y-hidden')
+    document.documentElement.classList.add('overflow-y-hidden' , 'h-screen')
+    body.classList.add('overflow-y-hidden', 'h-screen')
     setTimeout(()=>{
         inputNewToDo.focus()
     }, 700)
@@ -122,8 +122,8 @@ addNewToDoTmmrwBtn.addEventListener('click', () =>{
     window.scrollBy(0, window.innerHeight)
     backdropDivTmmrwTodo.classList.add('flex')
     backdropDivTmmrwTodo.classList.remove('hidden')
-    document.documentElement.add('overflow-y-hidden')
-    body.classList.add('overflow-y-hidden')
+    document.documentElement.classList.add('overflow-y-hidden' , 'h-screen')
+    body.classList.add('overflow-y-hidden', 'h-screen')
     setTimeout(()=>{
         inputTmmrwNewToDo.focus()
     },500)
@@ -281,8 +281,8 @@ tmmrwToDoUl.addEventListener('click', (e)=>{
 function closeModulFnc() {
     backdropDivPage.classList.add('hidden');
     backdropDivPage.classList.remove('flex');
-    document.documentElement.classList.remove('overflow-y-hidden')
-    body.classList.remove('overflow-y-hidden')
+    document.documentElement.classList.remove('overflow-y-hidden' , 'h-screen')
+    body.classList.remove('overflow-y-hidden', 'h-screen')
     inputNamePage.classList.remove('shakeInput')
     inputNamePage.style.border = 'none'
     inputNamePage.value = ''
@@ -291,8 +291,8 @@ function closeModulFnc() {
 function closeToDoModulFnc() {
     backdropDivTodo.classList.add('hidden');
     backdropDivTodo.classList.remove('flex');
-    document.documentElement.classList.remove('overflow-y-hidden')
-    body.classList.remove('overflow-y-hidden')
+    document.documentElement.classList.remove('overflow-y-hidden' , 'h-screen')
+    body.classList.remove('overflow-y-hidden', 'h-screen')
     inputNewToDo.classList.remove('shakeInput')
     inputNewToDo.style.border = 'none'
     inputNewToDo.value = ''
@@ -301,8 +301,8 @@ function closeToDoModulFnc() {
 function closeTmmrwToDoModulBoxFnc() {
     backdropDivTmmrwTodo.classList.add('hidden');
     backdropDivTmmrwTodo.classList.remove('flex');
-    document.documentElement.classList.remove('overflow-y-hidden')
-    body.classList.remove('overflow-y-hidden')
+    document.documentElement.classList.remove('overflow-y-hidden' , 'h-screen')
+    body.classList.remove('overflow-y-hidden', 'h-screen')
     inputTmmrwNewToDo.classList.remove('shakeInput')
     inputTmmrwNewToDo.style.border = 'none'
     inputTmmrwNewToDo.value = ''

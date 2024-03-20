@@ -47,6 +47,8 @@ const progressBg = $.getElementById('progressBg')
 
 // ---------------------------------------------------------------------------------
 
+userName.textContent = userName.textContent.trim()
+
 userName.addEventListener('mouseover', ()=>{
     userName.style.textDecoration = 'underline'
     userName.style.cursor = 'pointer'
@@ -57,7 +59,6 @@ userName.addEventListener('mouseout', ()=>{
 })
 
 userName.addEventListener('click', ()=>{
-    userName.innerHTML.trim()
     if (userName.innerHTML.trim().length < 11){
         userName.contentEditable = 'true'
         userName.focus()
@@ -93,7 +94,6 @@ setInterval(()=>{
         alert('Must be under 10 character')
     }
 }, 500)
-
 
 
 addPageBtn.addEventListener('click', () =>{

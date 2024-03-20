@@ -5,6 +5,8 @@ const ulPages = $.getElementById('pagesUl')
 const addNamePageBtn = $.getElementById('addNamePageBtn')
 const body = $.body
 let userName = $.getElementById('userName')
+let profilePic = $.getElementById('profilePic')
+const fileInput = $.getElementById('fileInput')
 // moduls
 const modulBox = $.getElementById('modul')
 const toDoModul = $.getElementById('toDoModul')
@@ -68,7 +70,23 @@ userName.addEventListener('click', ()=>{
     }
 })
 
+profilePic.addEventListener('click', ()=>{
+    fileInput.click()
+})
 
+fileInput.addEventListener('change', ()=>{
+    const file = fileInput.files[0]
+    if (file){
+        const reader = new FileReader()
+        reader.onload = function (e){
+            profilePic.src = e.target.result
+        }
+        reader.readAsDataURL(file)
+    }
+})
+
+
+// -----------------------------------------------------
 
 userName.addEventListener('focusout', ()=>{
     userName.contentEditable = 'false'

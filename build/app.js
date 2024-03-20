@@ -100,8 +100,8 @@ addPageBtn.addEventListener('click', () =>{
     window.scrollTo(0,0)
     backdropDivPage.classList.add('flex')
     backdropDivPage.classList.remove('hidden')
-    document.documentElement.classList.add('overflow-y-hidden')
-    body.classList.add('overflow-y-hidden')
+    document.documentElement.classList.add('overflow-y-hidden' , 'h-screen')
+    body.classList.add('overflow-y-hidden', 'h-screen')
     setTimeout(()=>{
         inputNamePage.focus()
     }, 700)

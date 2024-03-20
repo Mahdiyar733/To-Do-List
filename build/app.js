@@ -122,8 +122,8 @@ addNewToDoTmmrwBtn.addEventListener('click', () =>{
     window.scrollBy(0, window.innerHeight)
     backdropDivTmmrwTodo.classList.add('flex')
     backdropDivTmmrwTodo.classList.remove('hidden')
-    document.documentElement.classList.add('overflow-y-hidden' , 'h-screen')
-    body.classList.add('overflow-y-hidden', 'h-screen')
+    document.documentElement.classList.add('overflow-y-hidden')
+    body.classList.add('overflow-y-hidden')
     setTimeout(()=>{
         inputTmmrwNewToDo.focus()
     },500)
@@ -301,8 +301,8 @@ function closeToDoModulFnc() {
 function closeTmmrwToDoModulBoxFnc() {
     backdropDivTmmrwTodo.classList.add('hidden');
     backdropDivTmmrwTodo.classList.remove('flex');
-    document.documentElement.classList.remove('overflow-y-hidden' , 'h-screen')
-    body.classList.remove('overflow-y-hidden', 'h-screen')
+    document.documentElement.classList.remove('overflow-y-hidden')
+    body.classList.remove('overflow-y-hidden')
     inputTmmrwNewToDo.classList.remove('shakeInput')
     inputTmmrwNewToDo.style.border = 'none'
     inputTmmrwNewToDo.value = ''

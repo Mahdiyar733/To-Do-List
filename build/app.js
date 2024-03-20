@@ -57,6 +57,7 @@ userName.addEventListener('mouseout', ()=>{
 })
 
 userName.addEventListener('click', ()=>{
+    userName.innerHTML.trim()
     if (userName.innerHTML.trim().length < 11){
         userName.contentEditable = 'true'
         userName.focus()
@@ -98,15 +99,21 @@ setInterval(()=>{
 addPageBtn.addEventListener('click', () =>{
     backdropDivPage.classList.add('flex')
     backdropDivPage.classList.remove('hidden')
-    document.documentElement.add('overflow-y-hidden')
-    inputNamePage.focus()
+    window.scrollTo(0,0)
+    document.documentElement.classList.add('overflow-y-hidden')
+    setTimeout(()=>{
+        inputNamePage.focus()
+    }, 700)
 })
 
 addNewTodoBtn.addEventListener('click', () =>{
     backdropDivTodo.classList.add('flex')
     backdropDivTodo.classList.remove('hidden')
-    document.documentElement.add('overflow-y-hidden')
-    inputNewToDo.focus()
+    window.scrollTo(0,0)
+    document.documentElement.classList.add('overflow-y-hidden')
+    setTimeout(()=>{
+        inputNewToDo.focus()
+    }, 700)
 })
 
 addNewToDoTmmrwBtn.addEventListener('click', () =>{

@@ -161,7 +161,7 @@ addNamePageBtn.addEventListener('click', () =>{
 
 applyNewToDo.addEventListener('click', () =>{
     if (inputNewToDo.value.trim()){     
-        addNewLiTodoFnc()
+        addNewLiTodoFnc(inputNewToDo.value)
         countOfTasksFnc(countOfTasks)  
         closeToDoModulFnc()
         progressFnc() 
@@ -174,7 +174,7 @@ applyNewToDo.addEventListener('click', () =>{
 
 applyTmmrwNewToDo.addEventListener('click', () =>{
     if (inputTmmrwNewToDo.value.trim()){
-        addNewToDoTmmrwLiFnc()
+        addNewToDoTmmrwLiFnc(inputTmmrwNewToDo.value)
         countOfTmmrwTasksFnc(countOfTmmrwTasks)  
         closeTmmrwToDoModulBoxFnc()
     } else{
@@ -206,7 +206,7 @@ inputNamePage.addEventListener('keyup', (e) =>{
 
 inputNewToDo.addEventListener('keyup', (e) =>{
     if (e.keyCode == 13){
-        addNewLiTodoFnc()
+        addNewLiTodoFnc(inputNewToDo.value)
         closeToDoModulFnc()
         countOfTasksFnc(countOfTasks)
     }
@@ -217,7 +217,7 @@ inputNewToDo.addEventListener('keyup', (e) =>{
 
 inputTmmrwNewToDo.addEventListener('keyup', (e) =>{
     if (e.keyCode == 13){
-        addNewToDoTmmrwLiFnc()
+        addNewToDoTmmrwLiFnc(inputTmmrwNewToDo.value)
         closeTmmrwToDoModulBoxFnc()
         countOfTmmrwTasksFnc(countOfTmmrwTasks)
     }
@@ -251,15 +251,17 @@ toDoUl.addEventListener('click', (e) =>{
     if (checkBox.classList.contains('checked')){
         completedUl.append(checkBox.parentElement.parentElement)
         checkBox.parentElement.parentElement.classList.remove('liElem', 'bg-lightBlue')
-        checkBox.parentElement.parentElement.classList.add('line-through', 'decoration-black', 'decoration-solid', 'bg-[#f2f8ff]')
+        checkBox.parentElement.parentElement.classList.add('line-through', 'decoration-black', 'decoration-solid', 'bg-[#f2f8ff]', 'completed')
         checkBox.nextElementSibling.classList.add('opacity-70')
     }
     countOfTasksFnc(countOfTasks)
     countOfCompletedFnc(countOfCompleted)
     progressFnc()
+    localSaveComFnc()
+    localSaveLiFnc()
 })
 
-completedUl.addEventListener('click', (e) =>{
+ completedUl.addEventListener('click', (e) =>{
     let checkBox = null
     if (e.target.getAttribute('type') == 'checkbox'){
         checkBox = e.target
@@ -270,12 +272,14 @@ completedUl.addEventListener('click', (e) =>{
     if (!checkBox.classList.contains('checked')){
         toDoUl.append(checkBox.parentElement.parentElement)
         checkBox.parentElement.parentElement.classList.add('liElem', 'bg-lightBlue')
-        checkBox.parentElement.parentElement.classList.remove('line-through', 'decoration-black', 'decoration-solid', 'bg-[#f2f8ff]')
+        checkBox.parentElement.parentElement.classList.remove('line-through', 'decoration-black', 'decoration-solid', 'bg-[#f2f8ff]', 'completed')
         checkBox.nextElementSibling.classList.remove('opacity-70')
     }
     countOfTasksFnc(countOfTasks)
     countOfCompletedFnc(countOfCompleted)
     progressFnc()
+    localSaveComFnc()
+    localSaveLiFnc()
 })
 
 tmmrwToDoUl.addEventListener('click', (e)=>{
@@ -287,6 +291,7 @@ tmmrwToDoUl.addEventListener('click', (e)=>{
         return false
     }
     if (checkBox.classList.contains('checked')){
+        localRemover(e, 'savedItemsTmmrw')
         e.target.parentElement.parentElement.remove()
     } else{
         return false
@@ -295,6 +300,21 @@ tmmrwToDoUl.addEventListener('click', (e)=>{
 })
 
 ///////////////////// functions
+
+function localRemover(ev, storeName){
+    let textOfElem = ev.target.nextElementSibling.textContent
+        let arraySavedItems = Array.from(JSON.parse(localStorage.getItem(storeName)))
+        if (arraySavedItems){
+            let indexLi = arraySavedItems.findIndex((e)=>{
+                return e == textOfElem
+            })
+            arraySavedItems.splice(indexLi, 1)
+            localStorage.setItem(storeName, JSON.stringify(arraySavedItems))
+        }
+}
+
+
+
 
 function closeModulFnc() {
     backdropDivPage.classList.add('hidden');
@@ -354,7 +374,7 @@ function pageLiFnc(){
 }
 
 
-function addNewLiTodoFnc(){
+function addNewLiTodoFnc(content){
     let newDiv = document.createElement('div')
     newDiv.classList.add('b-input')
     let newSpan = document.createElement('span')
@@ -365,17 +385,18 @@ function addNewLiTodoFnc(){
     checkBox.setAttribute('type', 'checkbox')
     checkBox.classList.add('cursor-pointer', 'mr-2')
     let newLi = document.createElement('li')
-    newSpan.innerHTML = inputNewToDo.value
+    newSpan.innerHTML = content
     newLi.classList.add('w-full' ,'bg-lightBlue' ,'rounded-md' ,'shadow-custom4Li' ,'px-3' ,'py-2' ,'flex' , 'flex-row-reverse', 'justify-end' ,'items-center', `liElem`);
     newLabel.append(checkBox, newSpan, newDiv)
     newLi.append(newLabel)
     toDoUl.append(newLi)
     inputNewToDo.style.border = 'none'
     inputNewToDo.value = ''
+    localSaveLiFnc()
 }
 
 
-function addNewToDoTmmrwLiFnc(){
+function addNewToDoTmmrwLiFnc(content){
     let newDiv = document.createElement('div')
     newDiv.classList.add('b-input')
     let newSpan = document.createElement('span')
@@ -386,13 +407,14 @@ function addNewToDoTmmrwLiFnc(){
     checkBox.setAttribute('type', 'checkbox')
     checkBox.classList.add('cursor-pointer', 'mr-2')
     let newLi = document.createElement('li')
-    newSpan.innerHTML = inputTmmrwNewToDo.value
+    newSpan.innerHTML = content
     newLi.classList.add('w-full' ,'bg-lightBlue' ,'rounded-md' ,'shadow-custom4Li' ,'px-3' ,'py-2' ,'flex' , 'flex-row-reverse', 'justify-end' ,'items-center', 'tmmrwLi');
     newLabel.append(checkBox, newSpan, newDiv)
     newLi.append(newLabel)
     tmmrwToDoUl.append(newLi)
     inputTmmrwNewToDo.style.border = 'none'
     inputTmmrwNewToDo.value = ''
+    localSaveTmmrwFnc()
 }
 
 function countOfTasksFnc(elem){
@@ -428,3 +450,65 @@ window.addEventListener('load', () =>{
     timeElem.innerHTML =`${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`
 })
 
+
+
+function localSaveLiFnc(){
+    let liElements = document.querySelectorAll('.liElem')
+    const items = Array.from(liElements).map(item => item.textContent.trim())
+    localStorage.setItem('savedItemsLi', JSON.stringify(items))
+}
+
+function localSaveComFnc(){
+    let completedElements = document.querySelectorAll('.completed')
+    const items = Array.from(completedElements).map(item => item.textContent.trim())
+    localStorage.setItem('savedItemsCom', JSON.stringify(items))
+}
+
+function localSaveTmmrwFnc(){
+    let liTmmrwElements = document.querySelectorAll('.tmmrwLi')
+    const items = Array.from(liTmmrwElements).map(item => item.textContent.trim())
+    localStorage.setItem('savedItemsTmmrw', JSON.stringify(items))
+}
+
+
+window.addEventListener('load', ()=>{
+    let savedItemsLi = JSON.parse(localStorage.getItem('savedItemsLi'))
+    if (savedItemsLi){
+        savedItemsLi.forEach((li) =>{
+            addNewLiTodoFnc(li)
+        })
+    }
+
+    let savedItemsTmmrw = JSON.parse(localStorage.getItem('savedItemsTmmrw'))
+    if (savedItemsTmmrw){
+        savedItemsTmmrw.forEach((li) =>{
+            addNewToDoTmmrwLiFnc(li)
+        })
+    }
+
+    let savedItemsCom = JSON.parse(localStorage.getItem('savedItemsCom'))
+    if (savedItemsCom){
+        savedItemsCom.forEach((li)=>{
+            let newDiv = document.createElement('div')
+            newDiv.classList.add('b-input')
+            let newSpan = document.createElement('span')
+            newSpan.classList.add('text-grayText', 'font-semibold', 'text-base', 'opacity-70')
+            let newLabel = document.createElement('label')
+            newLabel.classList.add('b-contain')
+            let checkBox = document.createElement('input')
+            checkBox.setAttribute('type', 'checkbox')
+            checkBox.setAttribute('checked', 'true')
+            checkBox.classList.add('cursor-pointer', 'mr-2', 'checked')
+            let newLi = document.createElement('li')
+            newSpan.innerHTML = li
+            newLi.classList.add('w-full' ,'rounded-md' ,'shadow-custom4Li' ,'px-3' ,'py-2' ,'flex' , 'flex-row-reverse', 'justify-end' ,'items-center', 'line-through', 'decoration-black', 'decoration-solid', 'bg-[#f2f8ff]', 'completed');
+            newLabel.append(checkBox, newSpan, newDiv)
+            newLi.append(newLabel)
+            completedUl.append(newLi)
+        })
+    }
+    countOfTmmrwTasksFnc(countOfTmmrwTasks)
+    countOfCompletedFnc(countOfCompleted)
+    countOfTasksFnc(countOfTasks)
+    progressFnc()
+})

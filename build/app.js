@@ -49,6 +49,21 @@ const progressBg = $.getElementById('progressBg')
 
 // ---------------------------------------------------------------------------------
 
+let currentDay = new Date().getDate()
+if (localStorage.getItem('lastDay') !== currentDay.toString()){
+    localStorage.clear()
+    toDoUl.innerHTML = ''
+    completedUl.innerHTML = ''
+    tmmrwToDoUl.innerHTML = ''
+    localStorage.setItem('lastDay', currentDay.toString())
+}
+
+
+
+
+
+// ---------------------------------------------------------------------------------
+
 userName.textContent = userName.textContent.trim()
 
 userName.addEventListener('mouseover', ()=>{
@@ -80,13 +95,18 @@ fileInput.addEventListener('change', ()=>{
         const reader = new FileReader()
         reader.onload = function (e){
             profilePic.src = e.target.result
+            localStorage.setItem('profilePic', e.target.result)
         }
         reader.readAsDataURL(file)
     }
 })
 
 
-// -----------------------------------------------------
+
+
+userName.addEventListener('blur', ()=>{
+    localStorage.setItem('username', JSON.stringify(userName.textContent))
+})
 
 userName.addEventListener('focusout', ()=>{
     userName.contentEditable = 'false'
@@ -314,8 +334,6 @@ function localRemover(ev, storeName){
 }
 
 
-
-
 function closeModulFnc() {
     backdropDivPage.classList.add('hidden');
     backdropDivPage.classList.remove('flex');
@@ -472,6 +490,16 @@ function localSaveTmmrwFnc(){
 
 
 window.addEventListener('load', ()=>{
+    let userContent = JSON.parse(localStorage.getItem('username'))
+    if (userContent){
+        userName.innerHTML = userContent
+    }
+
+    let savedProfilePic = localStorage.getItem('profilePic')
+    if (savedProfilePic){
+        profilePic.src = savedProfilePic
+    }
+
     let savedItemsLi = JSON.parse(localStorage.getItem('savedItemsLi'))
     if (savedItemsLi){
         savedItemsLi.forEach((li) =>{

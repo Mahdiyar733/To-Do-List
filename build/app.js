@@ -535,6 +535,15 @@ window.addEventListener('load', ()=>{
             completedUl.append(newLi)
         })
     }
+
+    if (userName.innerHTML.trim().length > 7){
+        userName.classList.add('sm:text-base')
+        userName.classList.remove('sm:text-xl')
+    } else{
+        userName.classList.remove('sm:text-base')
+        userName.classList.add('sm:text-xl')
+    }
+
     countOfTmmrwTasksFnc(countOfTmmrwTasks)
     countOfCompletedFnc(countOfCompleted)
     countOfTasksFnc(countOfTasks)

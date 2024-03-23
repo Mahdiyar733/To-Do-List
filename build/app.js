@@ -7,6 +7,7 @@ const body = $.body
 let userName = $.getElementById('userName')
 let profilePic = $.getElementById('profilePic')
 const fileInput = $.getElementById('fileInput')
+const svgPic = $.getElementById('svgPic')
 // moduls
 const modulBox = $.getElementById('modul')
 const toDoModul = $.getElementById('toDoModul')
@@ -51,15 +52,14 @@ const progressBg = $.getElementById('progressBg')
 
 let currentDay = new Date().getDate()
 if (localStorage.getItem('lastDay') !== currentDay.toString()){
-    localStorage.clear()
+    localStorage.removeItem('savedItemsLi')
+    localStorage.removeItem('savedItemsTmmrw')
+    localStorage.removeItem('savedItemsCom')
     toDoUl.innerHTML = ''
     completedUl.innerHTML = ''
     tmmrwToDoUl.innerHTML = ''
     localStorage.setItem('lastDay', currentDay.toString())
 }
-
-
-
 
 
 // ---------------------------------------------------------------------------------
@@ -101,8 +101,25 @@ fileInput.addEventListener('change', ()=>{
     }
 })
 
+profilePic.addEventListener('mouseover', () =>{
+    svgPic.classList.add('block')
+    svgPic.classList.remove('hidden')
+})
 
+profilePic.addEventListener('mouseout', () =>{
+    svgPic.classList.remove('block')
+    svgPic.classList.add('hidden')
+})
 
+svgPic.addEventListener('mouseover', () =>{
+    profilePic.classList.add('brightness-75')
+    svgPic.classList.add('block')
+    svgPic.classList.remove('hidden')
+})
+
+svgPic.addEventListener('mouseout', () =>{
+    profilePic.classList.remove('brightness-75')
+})
 
 userName.addEventListener('blur', ()=>{
     localStorage.setItem('username', JSON.stringify(userName.textContent))
@@ -132,6 +149,8 @@ setInterval(()=>{
         alert('Must be under 10 character')
     }
 }, 500)
+
+// ----------------------------------------------
 
 
 addPageBtn.addEventListener('click', () =>{
@@ -175,6 +194,7 @@ addNamePageBtn.addEventListener('click', () =>{
     } else{
         inputNamePage.style.border = '1px solid red'
         inputNamePage.classList.add('shakeInput')
+        borderFixerFnc(inputNamePage)
         timeOutForAni(inputNamePage)
     }
 })
@@ -188,6 +208,7 @@ applyNewToDo.addEventListener('click', () =>{
     } else{
         inputNewToDo.style.border = '1px solid red'
         inputNewToDo.classList.add('shakeInput')
+        borderFixerFnc(inputNewToDo)
         timeOutForAni(inputNewToDo)
     }
 })
@@ -200,6 +221,7 @@ applyTmmrwNewToDo.addEventListener('click', () =>{
     } else{
         inputTmmrwNewToDo.style.border = '1px solid red'
         inputTmmrwNewToDo.classList.add('shakeInput')
+        borderFixerFnc(inputTmmrwNewToDo)
         timeOutForAni(inputTmmrwNewToDo)
     }
 })
@@ -270,7 +292,7 @@ toDoUl.addEventListener('click', (e) =>{
     }
     if (checkBox.classList.contains('checked')){
         completedUl.append(checkBox.parentElement.parentElement)
-        checkBox.parentElement.parentElement.classList.remove('liElem', 'bg-lightBlue')
+        checkBox.parentElement.parentElement.classList.remove('liElem', 'bg-lightBlue', 'hover:bg-[#9ecaff]')
         checkBox.parentElement.parentElement.classList.add('line-through', 'decoration-black', 'decoration-solid', 'bg-[#f2f8ff]', 'completed')
         checkBox.nextElementSibling.classList.add('opacity-70')
     }
@@ -291,7 +313,7 @@ toDoUl.addEventListener('click', (e) =>{
     }
     if (!checkBox.classList.contains('checked')){
         toDoUl.append(checkBox.parentElement.parentElement)
-        checkBox.parentElement.parentElement.classList.add('liElem', 'bg-lightBlue')
+        checkBox.parentElement.parentElement.classList.add('liElem', 'bg-lightBlue', 'hover:bg-[#9ecaff]')
         checkBox.parentElement.parentElement.classList.remove('line-through', 'decoration-black', 'decoration-solid', 'bg-[#f2f8ff]', 'completed')
         checkBox.nextElementSibling.classList.remove('opacity-70')
     }
@@ -340,7 +362,6 @@ function closeModulFnc() {
     document.documentElement.classList.remove('overflow-y-hidden' , 'h-screen')
     body.classList.remove('overflow-y-hidden', 'h-screen')
     inputNamePage.classList.remove('shakeInput')
-    inputNamePage.style.border = 'none'
     inputNamePage.value = ''
 }
 
@@ -350,7 +371,6 @@ function closeToDoModulFnc() {
     document.documentElement.classList.remove('overflow-y-hidden' , 'h-screen')
     body.classList.remove('overflow-y-hidden', 'h-screen')
     inputNewToDo.classList.remove('shakeInput')
-    inputNewToDo.style.border = 'none'
     inputNewToDo.value = ''
 }
 
@@ -360,7 +380,6 @@ function closeTmmrwToDoModulBoxFnc() {
     document.documentElement.classList.remove('overflow-y-hidden')
     body.classList.remove('overflow-y-hidden')
     inputTmmrwNewToDo.classList.remove('shakeInput')
-    inputTmmrwNewToDo.style.border = 'none'
     inputTmmrwNewToDo.value = ''
 }
 
@@ -371,7 +390,6 @@ function addNewLiFnc(){
     newLi.innerHTML = inputNamePage.value
     newLi.classList.add('lg:w-full', 'mr-3', 'w-auto', 'opacity-80', 'sm:mr-2', 'lg:border-none', 'lg:rounded-none', 'py-2', 'rounded-xl', 'border', 'border-solid', 'border-borderGray', 'px-3', 'w-full', 'hover:bg-white', 'cursor-pointer', 'transition-all', 'duration-300', 'pageElem');
     ulPages.append(newLi)
-    inputNamePage.style.border = 'none'
     inputNamePage.value = ''
 }
 
@@ -404,11 +422,10 @@ function addNewLiTodoFnc(content){
     checkBox.classList.add('cursor-pointer', 'mr-2')
     let newLi = document.createElement('li')
     newSpan.innerHTML = content
-    newLi.classList.add('w-full' ,'bg-lightBlue' ,'rounded-md' ,'shadow-custom4Li' ,'px-3' ,'py-2' ,'flex' , 'flex-row-reverse', 'justify-end' ,'items-center', `liElem`);
+    newLi.classList.add('w-full' ,'bg-lightBlue' ,'rounded-md' ,'shadow-custom4Li' ,'px-3' ,'py-2' ,'flex' , 'flex-row-reverse', 'justify-end' ,'items-center', `liElem`, 'transition-all', 'duration-300', 'hover:bg-[#9ecaff]', 'ease-[cubic-bezier(0,0.55,0.45,1)]');
     newLabel.append(checkBox, newSpan, newDiv)
     newLi.append(newLabel)
     toDoUl.append(newLi)
-    inputNewToDo.style.border = 'none'
     inputNewToDo.value = ''
     localSaveLiFnc()
 }
@@ -430,9 +447,14 @@ function addNewToDoTmmrwLiFnc(content){
     newLabel.append(checkBox, newSpan, newDiv)
     newLi.append(newLabel)
     tmmrwToDoUl.append(newLi)
-    inputTmmrwNewToDo.style.border = 'none'
     inputTmmrwNewToDo.value = ''
     localSaveTmmrwFnc()
+}
+
+function borderFixerFnc(elem){
+    setTimeout(()=>{
+        elem.style.border = '1px solid #e4e4e4'
+    }, 2500)
 }
 
 function countOfTasksFnc(elem){
@@ -547,5 +569,7 @@ window.addEventListener('load', ()=>{
     countOfTmmrwTasksFnc(countOfTmmrwTasks)
     countOfCompletedFnc(countOfCompleted)
     countOfTasksFnc(countOfTasks)
-    progressFnc()
+    if (!isNaN(completedUl.childElementCount / (completedUl.childElementCount + toDoUl.childElementCount))){
+        progressFnc()
+    }
 })

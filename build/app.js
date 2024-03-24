@@ -61,8 +61,7 @@ if (localStorage.getItem('lastDay') !== currentDay.toString()){
     localStorage.setItem('lastDay', currentDay.toString())
 }
 
-
-// ---------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------
 
 userName.textContent = userName.textContent.trim()
 
@@ -572,4 +571,6 @@ window.addEventListener('load', ()=>{
     if (!isNaN(completedUl.childElementCount / (completedUl.childElementCount + toDoUl.childElementCount))){
         progressFnc()
     }
+
 })
+

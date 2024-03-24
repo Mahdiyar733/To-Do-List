@@ -179,6 +179,7 @@
             </div>
             <ul
               class="flex flex-col w-full h-[352px] items-center px-2 py-2 gap-1 overflow-y-auto"
+              draggable="true"
               id="toDoUl"
             ></ul>
           </div>
@@ -295,10 +296,11 @@
       class="w-screen h-screen bg-transparent backdrop-blur-[2px] backdrop-brightness-[.80] absolute top-0 right-0 hidden justify-center items-center z-30"
     >
       <div
-        class="lg:w-[50rem] px-7 py-4 lg:py-6 rounded-2xl flex flex-col sm:flex-row items-center justify-center bg-white popup w-[80vw] sm:w-[unset]"
+        class="lg:w-[50rem] px-5 sm:px-7 py-4 lg:py-6 rounded-2xl flex flex-col sm:flex-row items-center justify-center bg-white popup w-[80vw] sm:w-[unset]"
         id="toDoModul"
       >
-        <label class="font-semibold text-xl text-grayText"
+        <label
+          class="font-semibold text-sm text-nowrap sm:text-base lg:text-xl text-grayText"
           >Enter your new To-Do's name :</label
         >
         <input
@@ -332,11 +334,11 @@
       class="w-screen h-screen bg-transparent backdrop-blur-[2px] backdrop-brightness-[.80] absolute bottom-0 right-0 hidden justify-center items-center z-30"
     >
       <div
-        class="mx-5 lg:w-[50rem] px-7 py-4 lg:py-6 rounded-2xl flex flex-col sm:flex-row items-center justify-center bg-white popup w-[80vw] sm:w-[unset]"
+        class="mx-5 lg:w-[50rem] px-5 sm:px-7 py-4 lg:py-6 rounded-2xl flex flex-col sm:flex-row items-center justify-center bg-white popup w-[80vw] sm:w-[unset]"
         id="tmmrwToDoModul"
       >
         <label
-          class="font-semibold text-base sm:text-sm md:text-base lg:text-xl text-grayText md:text-nowrap"
+          class="font-semibold text-sm md:text-base lg:text-xl text-grayText md:text-nowrap text-balance sm:text-wrap"
           >Enter your new Tomorrow To-Do's name :</label
         >
         <input

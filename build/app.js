@@ -348,7 +348,8 @@ tmmrwToDoUl.addEventListener('click', (e)=>{
         return false
     }
     if (checkBox.classList.contains('checked')){
-        localRemover(e, 'savedItemsTmmrw')
+        let textOfElem = ev.target.nextElementSibling.textContent
+        localRemover(textOfElem, 'savedItemsTmmrw')
         e.target.parentElement.parentElement.remove()
     } else{
         return false
@@ -356,14 +357,13 @@ tmmrwToDoUl.addEventListener('click', (e)=>{
     countOfTmmrwTasksFnc(countOfTmmrwTasks)
 })
 
-///////////////////// functions
+//------------------------------------------------------- functions --------------------------------------------------------//
 
-function localRemover(ev, storeName){
-    let textOfElem = ev.target.nextElementSibling.textContent
+function localRemover(item , storeName){
         let arraySavedItems = Array.from(JSON.parse(localStorage.getItem(storeName)))
         if (arraySavedItems){
             let indexLi = arraySavedItems.findIndex((e)=>{
-                return e == textOfElem
+                return e == item
             })
             arraySavedItems.splice(indexLi, 1)
             localStorage.setItem(storeName, JSON.stringify(arraySavedItems))
@@ -434,13 +434,32 @@ function addNewLiTodoFnc(content){
     checkBox.classList.add('cursor-pointer', 'mr-2')
     let newLi = document.createElement('li')
     newSpan.innerHTML = content
-    newLi.classList.add('w-full' ,'bg-lightBlue' ,'rounded-md' ,'shadow-custom4Li' ,'px-3' ,'py-2' ,'flex' , 'flex-row-reverse', 'justify-end' ,'items-center', `liElem`, 'transition-all', 'duration-300', 'hover:bg-[#9ecaff]', 'ease-[cubic-bezier(0,0.55,0.45,1)]');
+    newLi.classList.add('relative', 'w-full' ,'bg-lightBlue' ,'rounded-md' ,'shadow-custom4Li' ,'px-3' ,'py-2' ,'flex' , 'flex-row-reverse', 'justify-end' ,'items-center', `liElem`, 'transition-all', 'duration-300', 'hover:bg-[#9ecaff]', 'ease-[cubic-bezier(0,0.55,0.45,1)]');
     newLabel.append(checkBox, newSpan, newDiv)
+    let newSvgDiv = $.createElement('div')
+    newSvgDiv.innerHTML = `<svg viewBox="0 0 24 24" fill="none" class="w-full h-full">
+        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+        <g id="SVGRepo_iconCarrier">
+            <path d="M6 7V18C6 19.1046 6.89543 20 8 20H16C17.1046 20 18 19.1046 18 18V7M6 7H5M6 7H8M18 7H19M18 7H16M10 11V16M14 11V16M8 7V5C8 3.89543 8.89543 3 10 3H14C15.1046 3 16 3.89543 16 5V7M8 7H16" stroke="#e84f4f" stroke-width="1.128" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+        </g></svg>`
+    newSvgDiv.classList.add('w-6', 'h-6', 'absolute', 'right-2', 'cursor-pointer', 'hidden')
+    newLi.appendChild(newSvgDiv)
     newLi.append(newLabel)
     toDoUl.append(newLi)
     inputNewToDo.value = ''
     localSaveLiFnc()
+    deleteSvgDivFnc(newSvgDiv)
 
+    newLi.addEventListener('mouseover', ()=>{
+        newSvgDiv.classList.remove('hidden')
+        newSvgDiv.classList.add('block')
+    })
+    newLi.addEventListener('mouseout', ()=>{
+        newSvgDiv.classList.add('hidden')
+        newSvgDiv.classList.remove('block')
+    })
 }
 
 
@@ -489,20 +508,52 @@ function timeOutForAni(elem){
 }
 
 function progressFnc(){
-    let progressNum = Math.floor((completedUl.childElementCount / (completedUl.childElementCount + toDoUl.childElementCount)) * 100)
-    progressPer.innerHTML = `${progressNum} %`
-    progressBg.style.width = `${progressNum}%`
-
+        let progressNum = Math.floor((completedUl.childElementCount / (completedUl.childElementCount + toDoUl.childElementCount)) * 100)
+        progressPer.innerHTML = `${progressNum} %`
+        progressBg.style.width = `${progressNum}%`
 }
 
+function deleteSvgDivFnc(svg){
+    svg.addEventListener('click', (ev)=>{
+        if (ev.target.nodeName == 'svg'){
+            let textOfElem = ev.target.parentElement.parentElement.textContent.trim()
+            let ul = ev.target.parentElement.parentElement.parentElement
+            if (ul.getAttribute('id') == 'toDoUl'){
+                localRemover(textOfElem, 'savedItemsLi')
+                ev.target.parentElement.parentElement.remove()
+                countOfTasksFnc(countOfTasks)
+                countOfCompletedFnc(countOfCompleted)
+            } else if (ul.getAttribute('id') == 'completedUl'){
+                localRemover(textOfElem, 'savedItemsCom')
+                ev.target.parentElement.parentElement.remove()
+                countOfTasksFnc(countOfTasks)
+                countOfCompletedFnc(countOfCompleted)
+            }
+           
+            if (!isNaN(completedUl.childElementCount / (completedUl.childElementCount + toDoUl.childElementCount))){
+                progressFnc()
+            }
+        }
+        if (ev.target.nodeName == 'path'){
+            let textOfElem = ev.target.parentElement.parentElement.parentElement.parentElement.textContent.trim()
+            localRemover(textOfElem, 'savedItemsLi')
+            ev.target.parentElement.parentElement.parentElement.parentElement.remove()
+            countOfTasksFnc(countOfTasks)
+            countOfCompletedFnc(countOfCompleted)
+            if (!isNaN(completedUl.childElementCount / (completedUl.childElementCount + toDoUl.childElementCount))){
+                progressFnc()
+            }
+        }
+    })
+}
 
+// --------------------------------------------------------- window Load and localSver Fncs
 
 window.addEventListener('load', () =>{
     let date = new Date()
     dayElem.innerHTML = days[date.getDay()]
     timeElem.innerHTML =`${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`
 })
-
 
 
 function localSaveLiFnc(){
@@ -564,9 +615,31 @@ window.addEventListener('load', ()=>{
             checkBox.classList.add('cursor-pointer', 'mr-2', 'checked')
             let newLi = document.createElement('li')
             newSpan.innerHTML = li
-            newLi.classList.add('w-full' ,'rounded-md' ,'shadow-custom4Li' ,'px-3' ,'py-2' ,'flex' , 'flex-row-reverse', 'justify-end' ,'items-center', 'line-through', 'decoration-black', 'decoration-solid', 'bg-[#f2f8ff]', 'completed');
+            newLi.classList.add('relative', 'w-full' ,'rounded-md' ,'shadow-custom4Li' ,'px-3' ,'py-2' ,'flex' , 'flex-row-reverse', 'justify-end' ,'items-center', 'line-through', 'decoration-black', 'decoration-solid', 'bg-[#f2f8ff]', 'completed');
             newLabel.append(checkBox, newSpan, newDiv)
             newLi.append(newLabel)
+            
+            let newSvgDiv = $.createElement('div')
+            newSvgDiv.innerHTML = `<svg viewBox="0 0 24 24" fill="none" class="w-full h-full">
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g id="SVGRepo_iconCarrier">
+                    <path d="M6 7V18C6 19.1046 6.89543 20 8 20H16C17.1046 20 18 19.1046 18 18V7M6 7H5M6 7H8M18 7H19M18 7H16M10 11V16M14 11V16M8 7V5C8 3.89543 8.89543 3 10 3H14C15.1046 3 16 3.89543 16 5V7M8 7H16" stroke="#e84f4f" stroke-width="1.128" stroke-linecap="round" stroke-linejoin="round">
+                    </path>
+                </g></svg>`
+            newSvgDiv.classList.add('w-6', 'h-6', 'absolute', 'right-2', 'cursor-pointer', 'hidden')
+            newLi.appendChild(newSvgDiv)
+            deleteSvgDivFnc(newSvgDiv)
+    
+            newLi.addEventListener('mouseover', ()=>{
+                newSvgDiv.classList.remove('hidden')
+                newSvgDiv.classList.add('block')
+            })
+            newLi.addEventListener('mouseout', ()=>{
+                newSvgDiv.classList.add('hidden')
+                newSvgDiv.classList.remove('block')
+            })
+
             completedUl.append(newLi)
         })
     }

@@ -48,7 +48,8 @@ const progressPer = $.getElementById('progressPer')
 const progressBg = $.getElementById('progressBg')
 
 
-// ---------------------------------------------------------------------------------
+
+// --------------------------------------------------------------------------------- Day reset
 
 let currentDay = new Date().getDate()
 if (localStorage.getItem('lastDay') !== currentDay.toString()){
@@ -57,32 +58,17 @@ if (localStorage.getItem('lastDay') !== currentDay.toString()){
     localStorage.removeItem('savedItemsCom')
     toDoUl.innerHTML = ''
     completedUl.innerHTML = ''
+    let tmmrwLis = Array.from($.querySelectorAll('.tmmrwLi'))
+    tmmrwLis.forEach((item)=>{
+        item.classList.remove()
+        item.classList.add('w-full' ,'bg-lightBlue' ,'rounded-md' ,'shadow-custom4Li' ,'px-3' ,'py-2' ,'flex' , 'flex-row-reverse', 'justify-end' ,'items-center', `liElem`, 'transition-all', 'duration-300', 'hover:bg-[#9ecaff]', 'ease-[cubic-bezier(0,0.55,0.45,1)]')
+        toDoUl.append(item)
+    })
     tmmrwToDoUl.innerHTML = ''
     localStorage.setItem('lastDay', currentDay.toString())
 }
 
-// ---------------------------------------------------------------------------------------
-
-userName.textContent = userName.textContent.trim()
-
-userName.addEventListener('mouseover', ()=>{
-    userName.style.textDecoration = 'underline'
-    userName.style.cursor = 'pointer'
-})
-
-userName.addEventListener('mouseout', ()=>{
-    userName.style.textDecoration = 'none'
-})
-
-userName.addEventListener('click', ()=>{
-    if (userName.innerHTML.trim().length < 11){
-        userName.contentEditable = 'true'
-        userName.focus()
-        userName.style.outline = 'none'
-    } else {
-        userName.innerHTML = 'Name'
-    }
-})
+// --------------------------------------------------------------------------------------- Profile Photo Handler
 
 profilePic.addEventListener('click', ()=>{
     fileInput.click()
@@ -116,8 +102,39 @@ svgPic.addEventListener('mouseover', () =>{
     svgPic.classList.remove('hidden')
 })
 
+svgPic.addEventListener('click', ()=>{
+    fileInput.click()
+    svgPic.classList.remove('block')
+    svgPic.classList.add('hidden')
+})
+
 svgPic.addEventListener('mouseout', () =>{
     profilePic.classList.remove('brightness-75')
+    svgPic.classList.remove('block')
+    svgPic.classList.add('hidden')
+})
+
+// ---------------------------------------------------------------------------------------- UserName Handler
+
+userName.textContent = userName.textContent.trim()
+
+userName.addEventListener('mouseover', ()=>{
+    userName.style.textDecoration = 'underline'
+    userName.style.cursor = 'pointer'
+})
+
+userName.addEventListener('mouseout', ()=>{
+    userName.style.textDecoration = 'none'
+})
+
+userName.addEventListener('click', ()=>{
+    if (userName.innerHTML.trim().length < 11){
+        userName.contentEditable = 'true'
+        userName.focus()
+        userName.style.outline = 'none'
+    } else {
+        userName.innerHTML = 'Name'
+    }
 })
 
 userName.addEventListener('blur', ()=>{
@@ -149,8 +166,7 @@ setInterval(()=>{
     }
 }, 500)
 
-// ----------------------------------------------
-
+// --------------------------------------------------------------------------------------- modul and ToDo Handlers
 
 addPageBtn.addEventListener('click', () =>{
     window.scrollTo(0,0)
@@ -224,7 +240,6 @@ applyTmmrwNewToDo.addEventListener('click', () =>{
         timeOutForAni(inputTmmrwNewToDo)
     }
 })
-
 
 
 inputNamePage.addEventListener('keyup', (e) =>{
@@ -392,8 +407,6 @@ function addNewLiFnc(){
     inputNamePage.value = ''
 }
 
-
-
 function pageLiFnc(){
     let items = document.querySelectorAll('.pageElem')
     items.forEach((item)=>{
@@ -407,7 +420,6 @@ function pageLiFnc(){
         })
     })
 }
-
 
 function addNewLiTodoFnc(content){
     let newDiv = document.createElement('div')
@@ -427,6 +439,7 @@ function addNewLiTodoFnc(content){
     toDoUl.append(newLi)
     inputNewToDo.value = ''
     localSaveLiFnc()
+
 }
 
 

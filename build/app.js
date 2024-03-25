@@ -54,7 +54,7 @@ const progressBg = $.getElementById('progressBg')
 let currentDay = new Date().getDate()
 if (localStorage.getItem('lastDay') !== currentDay.toString()){
     localStorage.removeItem('savedItemsLi')
-    localStorage.removeItem('savedItemsTmmrw')
+    
     localStorage.removeItem('savedItemsCom')
     toDoUl.innerHTML = ''
     completedUl.innerHTML = ''
@@ -65,6 +65,7 @@ if (localStorage.getItem('lastDay') !== currentDay.toString()){
         toDoUl.append(item)
     })
     tmmrwToDoUl.innerHTML = ''
+    localStorage.removeItem('savedItemsTmmrw')
     localStorage.setItem('lastDay', currentDay.toString())
 }
 

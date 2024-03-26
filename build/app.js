@@ -1,69 +1,80 @@
 const $ = document
-const addPageBtn = $.getElementById('addBtn')
-const containerDiv = $.getElementById('container')
-const ulPages = $.getElementById('pagesUl')
-const addNamePageBtn = $.getElementById('addNamePageBtn')
+const addPageBtn = $.querySelector('#addBtn')
+const containerDiv = $.querySelector('#container')
+const ulPages = $.querySelector('#pagesUl')
+const addNamePageBtn = $.querySelector('#addNamePageBtn')
 const body = $.body
-let userName = $.getElementById('userName')
-let profilePic = $.getElementById('profilePic')
-const fileInput = $.getElementById('fileInput')
-const svgPic = $.getElementById('svgPic')
-// moduls
-const modulBox = $.getElementById('modul')
-const toDoModul = $.getElementById('toDoModul')
-const tmmrwToDoModul = $.getElementById('tmmrwToDoModul')
-const backdropDivPage = $.getElementById('backdropDiv-Page')
-const backdropDivTodo = $.getElementById('backdropDiv-toDo')
-const backdropDivTmmrwTodo = $.getElementById('backdropDiv-tmmrwTodo')
-// apply
-const applyNewToDo = $.getElementById('applyNewToDo')
-const applyTmmrwNewToDo = $.getElementById('applyTmmrwNewToDo')
-// close ModulBox
-const closeModulBoxBtn = $.getElementById('closeModulBoxBtn')
-const closeToDoModulBoxBtn = $.getElementById('closeToDoModulBoxBtn')
-const closeTmmrwToDoModulBoxBtn = $.getElementById('closeTmmrwToDoModulBoxBtn')
-// inputs
-const inputNamePage = $.getElementById('inputNamePage')
-const inputNewToDo = $.getElementById('inputNewToDo')
-// ------
-const inputTmmrwNewToDo = $.getElementById('inputTmmrwNewToDo')
-const home = $.getElementById('home')
+const userName = $.querySelector('#userName')
+const profilePic = $.querySelector('#profilePic')
+const fileInput = $.querySelector('#fileInput')
+const backdropDivProfPic = $.querySelector('#backdropDiv-ProfPic')
+const svgPic = $.querySelector('#svgPic')
+const modulBox = $.querySelector('#modul')
+const toDoModul = $.querySelector('#toDoModul')
+const tmmrwToDoModul = $.querySelector('#tmmrwToDoModul')
+const backdropDivPage = $.querySelector('#backdropDiv-Page')
+const backdropDivTodo = $.querySelector('#backdropDiv-toDo')
+const backdropDivTmmrwTodo = $.querySelector('#backdropDiv-tmmrwTodo')
+const applyNewToDo = $.querySelector('#applyNewToDo')
+const applyTmmrwNewToDo = $.querySelector('#applyTmmrwNewToDo')
+const closeModulBoxBtn = $.querySelector('#closeModulBoxBtn')
+const closeToDoModulBoxBtn = $.querySelector('#closeToDoModulBoxBtn')
+const closeTmmrwToDoModulBoxBtn = $.querySelector('#closeTmmrwToDoModulBoxBtn')
+const inputNamePage = $.querySelector('#inputNamePage')
+const inputNewToDo = $.querySelector('#inputNewToDo')
+const inputTmmrwNewToDo = $.querySelector('#inputTmmrwNewToDo')
+const home = $.querySelector('#home')
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-let dayElem = $.getElementById('dayElem')
-let timeElem = $.getElementById('timeElem')
-// add new todo button
-const addNewTodoBtn = $.getElementById('addNewTodoBtn')
-const addNewToDoTmmrwBtn = $.getElementById('addNewTodo4TmmrwBtn')
-// ul
-const toDoUl = $.getElementById('toDoUl')
-const tmmrwToDoUl = $.getElementById('tmmrwToDoUl')
-const completedUl = $.getElementById('completedUl')
-// counter
-const countOfTasks = $.getElementById('countOfTasks')
-const countOfCompleted = $.getElementById('countOfCompleted')
-const countOfTmmrwTasks = $.getElementById('countOfTmmrwTasks')
-// progress
-const progressPer = $.getElementById('progressPer')
-const progressBg = $.getElementById('progressBg')
+const dayElem = $.querySelector('#dayElem')
+const timeElem = $.querySelector('#timeElem')
+const addNewTodoBtn = $.querySelector('#addNewTodoBtn')
+const addNewToDoTmmrwBtn = $.querySelector('#addNewTodo4TmmrwBtn')
+const toDoUl = $.querySelector('#toDoUl')
+const tmmrwToDoUl = $.querySelector('#tmmrwToDoUl')
+const completedUl = $.querySelector('#completedUl')
+const countOfTasks = $.querySelector('#countOfTasks')
+const countOfCompleted = $.querySelector('#countOfCompleted')
+const countOfTmmrwTasks = $.querySelector('#countOfTmmrwTasks')
+const progressPer = $.querySelector('#progressPer')
+const progressBg = $.querySelector('#progressBg')
 
 
 
 // --------------------------------------------------------------------------------- Day reset
 
-let currentDay = new Date().getDate()
+const currentDay = new Date().getDate()
 if (localStorage.getItem('lastDay') !== currentDay.toString()){
+    const tmmrwLis = Array.from($.querySelectorAll('.tmmrwLi'))
+
     localStorage.removeItem('savedItemsLi')
-    
     localStorage.removeItem('savedItemsCom')
+
     toDoUl.innerHTML = ''
     completedUl.innerHTML = ''
-    let tmmrwLis = Array.from($.querySelectorAll('.tmmrwLi'))
+    
     tmmrwLis.forEach((item)=>{
         item.classList.remove()
-        item.classList.add('w-full' ,'bg-lightBlue' ,'rounded-md' ,'shadow-custom4Li' ,'px-3' ,'py-2' ,'flex' , 'flex-row-reverse', 'justify-end' ,'items-center', `liElem`, 'transition-all', 'duration-300', 'hover:bg-[#9ecaff]', 'ease-[cubic-bezier(0,0.55,0.45,1)]')
+        item.classList.add(
+        'w-full' ,
+        'bg-lightBlue' ,
+        'rounded-md' ,
+        'shadow-custom4Li' ,
+        'px-3' ,
+        'py-2' ,
+        'flex' ,
+        'flex-row-reverse',
+        'justify-end' ,
+        'items-center',
+        `liElem`,
+        'transition-all',
+        'duration-300',
+        'hover:bg-[#e4efff]',
+        'ease-[cubic-bezier(0,0.55,0.45,1)]'
+        )
         toDoUl.append(item)
     })
+
     tmmrwToDoUl.innerHTML = ''
     localStorage.removeItem('savedItemsTmmrw')
     localStorage.setItem('lastDay', currentDay.toString())
@@ -78,12 +89,33 @@ profilePic.addEventListener('click', ()=>{
 fileInput.addEventListener('change', ()=>{
     const file = fileInput.files[0]
     if (file){
-        const reader = new FileReader()
-        reader.onload = function (e){
+        const fileType = file.type
+        if (fileType === 'image/jpeg' || fileType === 'image/png'){
+            window.scrollTo(0,0)
+            const reader = new FileReader()
+            reader.onload = function (e){
             profilePic.src = e.target.result
             localStorage.setItem('profilePic', e.target.result)
         }
         reader.readAsDataURL(file)
+        } else{
+            window.scrollTo(0,0)
+            backdropDivProfPic.classList.remove('hidden')
+            backdropDivProfPic.classList.add('flex')
+            fileInput.value = ''
+            setTimeout(()=>{
+                backdropDivProfPic.firstElementChild.classList.add('fadeOutUp')
+                backdropDivProfPic.firstElementChild.classList.remove('fadeInDown')
+            }, 3000)
+            setTimeout(()=>{
+                backdropDivProfPic.classList.add('hidden')
+                backdropDivProfPic.classList.remove('flex')
+            }, 3500)
+            setTimeout(()=>{
+                backdropDivProfPic.firstElementChild.classList.remove('fadeOutUp')
+                backdropDivProfPic.firstElementChild.classList.add('fadeInDown')
+            }, 3600)
+        }
     }
 })
 
@@ -202,6 +234,7 @@ addNewToDoTmmrwBtn.addEventListener('click', () =>{
     },500)
 })
 
+
 addNamePageBtn.addEventListener('click', () =>{
     if (inputNamePage.value.trim() && inputNamePage.value.length < 11){
         addNewLiFnc()
@@ -239,6 +272,25 @@ applyTmmrwNewToDo.addEventListener('click', () =>{
         inputTmmrwNewToDo.classList.add('shakeInput')
         borderFixerFnc(inputTmmrwNewToDo)
         timeOutForAni(inputTmmrwNewToDo)
+    }
+})
+
+
+backdropDivTodo.addEventListener('click', (e) =>{
+    if (e.target.id == 'backdropDiv-toDo'){
+        closeToDoModulFnc()
+    }
+})
+
+backdropDivPage.addEventListener('click', (e) =>{
+    if (e.target.id == 'backdropDiv-Page'){
+        closeModulFnc()
+    }
+})
+
+backdropDivTmmrwTodo.addEventListener('click', (e) =>{
+    if (e.target.id == 'backdropDiv-tmmrwTodo'){
+        closeTmmrwToDoModulBoxFnc()
     }
 })
 
@@ -283,6 +335,7 @@ inputTmmrwNewToDo.addEventListener('keyup', (e) =>{
     }
 })
 
+
 closeModulBoxBtn.addEventListener('click', () =>{
     closeModulFnc()
 })
@@ -296,7 +349,6 @@ closeTmmrwToDoModulBoxBtn.addEventListener('click', () =>{
 })
 
 
-
 toDoUl.addEventListener('click', (e) =>{
     let checkBox = null
     if (e.target.getAttribute('type') == 'checkbox'){
@@ -307,7 +359,7 @@ toDoUl.addEventListener('click', (e) =>{
     }
     if (checkBox.classList.contains('checked')){
         completedUl.append(checkBox.parentElement.parentElement)
-        checkBox.parentElement.parentElement.classList.remove('liElem', 'bg-lightBlue', 'hover:bg-[#9ecaff]')
+        checkBox.parentElement.parentElement.classList.remove('liElem', 'bg-lightBlue', 'hover:bg-[#e4efff]')
         checkBox.parentElement.parentElement.classList.add('line-through', 'decoration-black', 'decoration-solid', 'bg-[#f2f8ff]', 'completed')
         checkBox.nextElementSibling.classList.add('opacity-70')
     }
@@ -328,7 +380,7 @@ toDoUl.addEventListener('click', (e) =>{
     }
     if (!checkBox.classList.contains('checked')){
         toDoUl.append(checkBox.parentElement.parentElement)
-        checkBox.parentElement.parentElement.classList.add('liElem', 'bg-lightBlue', 'hover:bg-[#9ecaff]')
+        checkBox.parentElement.parentElement.classList.add('liElem', 'bg-lightBlue', 'hover:bg-[#e4efff]')
         checkBox.parentElement.parentElement.classList.remove('line-through', 'decoration-black', 'decoration-solid', 'bg-[#f2f8ff]', 'completed')
         checkBox.nextElementSibling.classList.remove('opacity-70')
     }
@@ -434,14 +486,14 @@ function addNewLiTodoFnc(content){
     checkBox.classList.add('cursor-pointer', 'mr-2')
     let newLi = document.createElement('li')
     newSpan.innerHTML = content
-    newLi.classList.add('relative', 'w-full' ,'bg-lightBlue' ,'rounded-md' ,'shadow-custom4Li' ,'px-3' ,'py-2' ,'flex' , 'flex-row-reverse', 'justify-end' ,'items-center', `liElem`, 'transition-all', 'duration-300', 'hover:bg-[#9ecaff]', 'ease-[cubic-bezier(0,0.55,0.45,1)]');
+    newLi.classList.add('relative', 'w-full' ,'bg-lightBlue' ,'rounded-md' ,'shadow-custom4Li' ,'px-3' ,'py-2' ,'flex' , 'flex-row-reverse', 'justify-end' ,'items-center', `liElem`, 'transition-all', 'duration-300', 'hover:bg-[#e4efff]', 'ease-[cubic-bezier(0,0.55,0.45,1)]');
     newLabel.append(checkBox, newSpan, newDiv)
     let newSvgDiv = $.createElement('div')
     newSvgDiv.innerHTML = `<svg viewBox="0 0 24 24" fill="none" class="w-full h-full">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
         <g id="SVGRepo_iconCarrier">
-            <path d="M6 7V18C6 19.1046 6.89543 20 8 20H16C17.1046 20 18 19.1046 18 18V7M6 7H5M6 7H8M18 7H19M18 7H16M10 11V16M14 11V16M8 7V5C8 3.89543 8.89543 3 10 3H14C15.1046 3 16 3.89543 16 5V7M8 7H16" stroke="#e84f4f" stroke-width="1.128" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 7V18C6 19.1046 6.89543 20 8 20H16C17.1046 20 18 19.1046 18 18V7M6 7H5M6 7H8M18 7H19M18 7H16M10 11V16M14 11V16M8 7V5C8 3.89543 8.89543 3 10 3H14C15.1046 3 16 3.89543 16 5V7M8 7H16" stroke="#FF4763" stroke-width="1.128" stroke-linecap="round" stroke-linejoin="round">
             </path>
         </g></svg>`
     newSvgDiv.classList.add('w-6', 'h-6', 'absolute', 'right-2', 'cursor-pointer', 'hidden')
@@ -461,7 +513,6 @@ function addNewLiTodoFnc(content){
         newSvgDiv.classList.remove('block')
     })
 }
-
 
 function addNewToDoTmmrwLiFnc(content){
     let newDiv = document.createElement('div')
@@ -483,11 +534,13 @@ function addNewToDoTmmrwLiFnc(content){
     localSaveTmmrwFnc()
 }
 
+
 function borderFixerFnc(elem){
-    setTimeout(()=>{
+    elem.addEventListener('keyup', ()=>{
         elem.style.border = '1px solid #e4e4e4'
-    }, 2500)
+    })
 }
+
 
 function countOfTasksFnc(elem){
     elem.innerHTML = `${document.querySelectorAll(`.liElem`).length} Tasks`
@@ -501,11 +554,13 @@ function countOfTmmrwTasksFnc(elem){
     elem.innerHTML = `${document.querySelectorAll('.tmmrwLi').length} Tasks`
 }
 
+
 function timeOutForAni(elem){
     setTimeout(() =>{
         elem.classList.remove('shakeInput')
     }, 2000)
 }
+
 
 function progressFnc(){
         let progressNum = Math.floor((completedUl.childElementCount / (completedUl.childElementCount + toDoUl.childElementCount)) * 100)
@@ -513,35 +568,62 @@ function progressFnc(){
         progressBg.style.width = `${progressNum}%`
 }
 
+
 function deleteSvgDivFnc(svg){
     svg.addEventListener('click', (ev)=>{
         if (ev.target.nodeName == 'svg'){
-            let textOfElem = ev.target.parentElement.parentElement.textContent.trim()
-            let ul = ev.target.parentElement.parentElement.parentElement
+            const textOfElem = ev.target.parentElement.parentElement.textContent.trim()
+            const ul = ev.target.parentElement.parentElement.parentElement
             if (ul.getAttribute('id') == 'toDoUl'){
                 localRemover(textOfElem, 'savedItemsLi')
                 ev.target.parentElement.parentElement.remove()
                 countOfTasksFnc(countOfTasks)
                 countOfCompletedFnc(countOfCompleted)
+              if (isNaN(completedUl.childElementCount / (completedUl.childElementCount + toDoUl.childElementCount))){
+                progressPer.innerHTML = `${0} %`
+                progressBg.style.width = 0
+              } else{
+                progressFnc()
+              }
             } else if (ul.getAttribute('id') == 'completedUl'){
                 localRemover(textOfElem, 'savedItemsCom')
                 ev.target.parentElement.parentElement.remove()
                 countOfTasksFnc(countOfTasks)
                 countOfCompletedFnc(countOfCompleted)
-            }
-           
-            if (!isNaN(completedUl.childElementCount / (completedUl.childElementCount + toDoUl.childElementCount))){
+              if (isNaN(completedUl.childElementCount / (completedUl.childElementCount + toDoUl.childElementCount))){
+                progressPer.innerHTML = `${0} %`
+                progressBg.style.width = 0
+              } else{
                 progressFnc()
+              }
             }
         }
+
         if (ev.target.nodeName == 'path'){
-            let textOfElem = ev.target.parentElement.parentElement.parentElement.parentElement.textContent.trim()
-            localRemover(textOfElem, 'savedItemsLi')
-            ev.target.parentElement.parentElement.parentElement.parentElement.remove()
-            countOfTasksFnc(countOfTasks)
-            countOfCompletedFnc(countOfCompleted)
-            if (!isNaN(completedUl.childElementCount / (completedUl.childElementCount + toDoUl.childElementCount))){
+            const textOfElem = ev.target.parentElement.parentElement.parentElement.parentElement.textContent.trim()
+            const ul = ev.target.parentElement.parentElement.parentElement.parentElement.parentElement
+            if (ul.getAttribute('id') == 'toDoUl'){
+                localRemover(textOfElem, 'savedItemsLi')
+                ev.target.parentElement.parentElement.parentElement.parentElement.remove()
+                countOfTasksFnc(countOfTasks)
+                countOfCompletedFnc(countOfCompleted)
+              if (isNaN(completedUl.childElementCount / (completedUl.childElementCount + toDoUl.childElementCount))){
+                progressPer.innerHTML = `${0} %`
+                progressBg.style.width = 0
+              } else{
                 progressFnc()
+              }
+            } else if (ul.getAttribute('id') == 'completedUl'){
+                localRemover(textOfElem, 'savedItemsCom')
+                ev.target.parentElement.parentElement.parentElement.parentElement.remove()
+                countOfTasksFnc(countOfTasks)
+                countOfCompletedFnc(countOfCompleted)
+              if (isNaN(completedUl.childElementCount / (completedUl.childElementCount + toDoUl.childElementCount))){
+                progressPer.innerHTML = `${0} %`
+                progressBg.style.width = 0
+              } else{
+                progressFnc()
+              }
             }
         }
     })

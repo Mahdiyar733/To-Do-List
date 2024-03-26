@@ -40,45 +40,27 @@ const progressPer = $.querySelector('#progressPer')
 const progressBg = $.querySelector('#progressBg')
 
 
-
 // --------------------------------------------------------------------------------- Day reset
 
 const currentDay = new Date().getDate()
-if (localStorage.getItem('lastDay') !== currentDay.toString()){
-    const tmmrwLis = Array.from($.querySelectorAll('.tmmrwLi'))
-
-    localStorage.removeItem('savedItemsLi')
-    localStorage.removeItem('savedItemsCom')
-
-    toDoUl.innerHTML = ''
-    completedUl.innerHTML = ''
+window.addEventListener('load', ()=>{
+    if (localStorage.getItem('lastDay') !== currentDay.toString()){
+        localStorage.removeItem('savedItemsLi')
+        localStorage.removeItem('savedItemsCom')
     
-    tmmrwLis.forEach((item)=>{
-        item.classList.remove()
-        item.classList.add(
-        'w-full' ,
-        'bg-lightBlue' ,
-        'rounded-md' ,
-        'shadow-custom4Li' ,
-        'px-3' ,
-        'py-2' ,
-        'flex' ,
-        'flex-row-reverse',
-        'justify-end' ,
-        'items-center',
-        `liElem`,
-        'transition-all',
-        'duration-300',
-        'hover:bg-[#e4efff]',
-        'ease-[cubic-bezier(0,0.55,0.45,1)]'
-        )
-        toDoUl.append(item)
-    })
-
-    tmmrwToDoUl.innerHTML = ''
-    localStorage.removeItem('savedItemsTmmrw')
-    localStorage.setItem('lastDay', currentDay.toString())
-}
+        toDoUl.innerHTML = ''
+        completedUl.innerHTML = ''
+        tmmrwToDoUl.innerHTML = ''
+    
+        const tomorrowTodos = JSON.parse(localStorage.getItem('savedItemsTmmrw'))
+        const todayTodos = JSON.parse(localStorage.getItem('saveItemsLi')) || []
+        todayTodos.push(...tomorrowTodos)
+    
+        localStorage.setItem('savedItemsLi', JSON.stringify(todayTodos))
+        localStorage.removeItem('savedItemsTmmrw')
+        localStorage.setItem('lastDay', currentDay.toString())
+    }
+})
 
 // --------------------------------------------------------------------------------------- Profile Photo Handler
 
@@ -301,6 +283,7 @@ inputNamePage.addEventListener('keyup', (e) =>{
             addNewLiFnc()
             pageLiFnc()
             closeModulFnc()
+            progressFnc()
         } else{
             inputNamePage.style.border = '1px solid red'
             inputNamePage.classList.add('shakeInput')
@@ -318,6 +301,7 @@ inputNewToDo.addEventListener('keyup', (e) =>{
         addNewLiTodoFnc(inputNewToDo.value)
         closeToDoModulFnc()
         countOfTasksFnc(countOfTasks)
+        progressFnc()
     }
     if (e.keyCode == 27){
         closeToDoModulFnc()
@@ -497,12 +481,16 @@ function addNewLiTodoFnc(content){
             </path>
         </g></svg>`
     newSvgDiv.classList.add('w-6', 'h-6', 'absolute', 'right-2', 'cursor-pointer', 'hidden')
+    newSpan.setAttribute('spellcheck', 'false')
     newLi.appendChild(newSvgDiv)
     newLi.append(newLabel)
     toDoUl.append(newLi)
+
     inputNewToDo.value = ''
+
     localSaveLiFnc()
     deleteSvgDivFnc(newSvgDiv)
+    editTodoFnc(newLi, newSpan)
 
     newLi.addEventListener('mouseover', ()=>{
         newSvgDiv.classList.remove('hidden')
@@ -512,6 +500,8 @@ function addNewLiTodoFnc(content){
         newSvgDiv.classList.add('hidden')
         newSvgDiv.classList.remove('block')
     })
+
+
 }
 
 function addNewToDoTmmrwLiFnc(content){
@@ -628,6 +618,33 @@ function deleteSvgDivFnc(svg){
         }
     })
 }
+
+
+function editTodoFnc(elem, spanElem){
+    elem.addEventListener('click', (e)=>{
+        if (e.target.nodeName === 'LI' && e.target.parentElement.id == 'toDoUl'){
+            spanElem.contentEditable = 'true'
+            const range = $.createRange()
+            const selection = window.getSelection()
+            range.selectNodeContents(spanElem)
+            range.collapse(false)
+            selection.removeAllRanges()
+            selection.addRange(range)
+            spanElem.focus()
+            spanElem.style.outline = 'none'
+            spanElem.addEventListener('blur', ()=>{
+                if (spanElem){
+                    localSaveLiFnc()
+                } else{
+                    spanElem.innerHTML = 'To Do'
+                }
+            })
+        }
+    })
+}
+
+
+
 
 // --------------------------------------------------------- window Load and localSver Fncs
 

@@ -3,10 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>To-Do List</title>
     <link rel="stylesheet" href="./style.css" />
     <script src="./app.js" defer></script>
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/ldrs/dist/auto/helix.js"
+    ></script>
     <link rel="stylesheet" href="./handStyle.css" />
+    <link rel="stylesheet" href="./background-Ani.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -17,366 +22,408 @@
   <body
     class="flex justify-center items-center bg-[#e4efff] sm:h-auto lg:h-screen font-DmSans overflow-y-auto relative scroll-smooth"
   >
-    <div
-      class="lg:w-2/3 lg:h-[35rem] w-full h-full lg:rounded-3xl bg-white flex lg:flex-row flex-col overflow-hidden lg:min-w-[840px]"
-      id="container"
-    >
-      <div
-        class="bg-white2 lg:h-full sm:px-4 w-full flex flex-row lg:flex-col items-center p-2 px-4 relative sm:justify-between lg:w-32 lg:p-0"
-      >
-        <div
-          class="flex flex-row lg:flex-col w-full sm:w-1/3 h-full items-center justify-between sm:justify-normal lg:w-full lg:h-[unset]"
-        >
-          <img
-            src="./images/profilePic.PNG"
-            class="rounded-full sm:w-20 sm:h-20 lg:h-20 cursor-pointer lg:w-20 w-14 h-14 object-cover lg:mt-7 lg:mb-1 hover:brightness-75 transition-all duration-200"
-            id="profilePic"
-            title="click for change"
-          />
-          <svg
-            viewBox="0 0 24 24"
-            class="sm:w-9 sm:h-9 absolute lg:top-[50px] cursor-pointer hidden left-[30px] w-7 h-7 sm:left-[38px] lg:left-[unset]"
-            id="svgPic"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            stroke="#000000"
-          >
-            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-            <g
-              id="SVGRepo_tracerCarrier"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            ></g>
-            <g id="SVGRepo_iconCarrier">
-              <path
-                d="M13 4H8.8C7.11984 4 6.27976 4 5.63803 4.32698C5.07354 4.6146 4.6146 5.07354 4.32698 5.63803C4 6.27976 4 7.11984 4 8.8V15.2C4 16.8802 4 17.7202 4.32698 18.362C4.6146 18.9265 5.07354 19.3854 5.63803 19.673C6.27976 20 7.11984 20 8.8 20H15.2C16.8802 20 17.7202 20 18.362 19.673C18.9265 19.3854 19.3854 18.9265 19.673 18.362C20 17.7202 20 16.8802 20 15.2V11"
-                stroke="#ffffff"
-                stroke-width="1.152"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              ></path>
-              <path
-                d="M4 16L8.29289 11.7071C8.68342 11.3166 9.31658 11.3166 9.70711 11.7071L13 15M13 15L15.7929 12.2071C16.1834 11.8166 16.8166 11.8166 17.2071 12.2071L20 15M13 15L15.25 17.25"
-                stroke="#ffffff"
-                stroke-width="1.152"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              ></path>
-              <path
-                d="M18.5 3V5.5M18.5 8V5.5M18.5 5.5H16M18.5 5.5H21"
-                stroke="#ffffff"
-                stroke-width="1.152"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              ></path>
-            </g>
-          </svg>
-          <input type="file" id="fileInput" class="hidden" />
-          <h5
-            class="sm:text-xl text-base font-semibold text-grayText lg:mb-6 sm:ml-4 lg:ml-0"
-            id="userName"
-            spellcheck="false"
-            title="click for change"
-          >
-            Jaden
-          </h5>
-        </div>
-        <div
-          class="lg:flex-col items-center sm:relative sm:right-0 sm:[left:unset] sm:bg-transparent fixed bottom-0 right-0 left-0 bg-[#cfcece] px-3 flex-row flex z-30 h-14 lg:h-full sm:w-2/3 lg:w-full lg:p-0 flex-nowrap overflow-auto w-screen"
-        >
-          <ul
-            class="font-DmSans text-grayText font-semibold text-center lg:w-full h-2/3 text-sm flex flex-row lg:flex-col lg:h-[unset]"
-            id="pagesUl"
-          >
-            <li
-              class="sm:mr-2 mr-3 lg:border-none lg:rounded-none py-2 rounded-xl border border-solid border-borderGray px-3 lg:w-full w-auto hover:bg-white cursor-pointer transition-all duration-300 activeli pageElem"
-              id="mainLi"
-            >
-              Home
-            </li>
-          </ul>
-          <button
-            class="font-DmSans text-grayText font-semibold text-sm opacity-55 lg:mt-2 hover:opacity-80 ml-3 lg:ml-0 lg:text-xs text-nowrap lg:mb-5"
-            id="addBtn"
-          >
-            + Add a page
-          </button>
-        </div>
+    <div id="loading-container">
+      <l-helix size="45" speed="2.5" color="black"></l-helix>
+    </div>
+    <div id="main-content">
+      <div class="background">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
       <div
-        class="bg-white h-full sm:h-[561px] lg:h-full w-full flex flex-col px-8"
+        class="lg:w-2/3 lg:h-[35rem] w-full h-full lg:rounded-3xl bg-white flex lg:flex-row flex-col overflow-hidden lg:min-w-[840px]"
+        id="container"
       >
         <div
-          class="items-center justify-between flex w-full flex-row pt-7 pb-5 px-0 sm:px-4"
+          class="bg-white2 lg:h-full sm:px-4 w-full flex flex-row lg:flex-col items-center p-2 px-4 relative sm:justify-between lg:w-32 lg:p-0"
         >
-          <div class="flex flex-row items-center">
+          <div
+            class="flex flex-row lg:flex-col w-full sm:w-1/3 h-full items-center justify-between sm:justify-normal lg:w-full lg:h-[unset]"
+          >
+            <img
+              src="./images/profilePic.PNG"
+              class="rounded-full sm:w-20 sm:h-20 lg:h-20 cursor-pointer lg:w-20 w-14 h-14 object-cover lg:mt-7 lg:mb-1 hover:brightness-75 transition-all duration-200"
+              id="profilePic"
+              title="click for change"
+            />
             <svg
-              width="30px"
-              height="30px"
               viewBox="0 0 24 24"
+              class="sm:w-9 sm:h-9 absolute lg:top-[50px] cursor-pointer hidden left-[30px] w-7 h-7 sm:left-[38px] lg:left-[unset]"
+              id="svgPic"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
+              stroke="#000000"
             >
-              <g id="SVGRepo_bgCarrier" stroke-width="0" />
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
               <g
                 id="SVGRepo_tracerCarrier"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-              />
+              ></g>
               <g id="SVGRepo_iconCarrier">
                 <path
-                  d="M11 6L21 6.00072M11 12L21 12.0007M11 18L21 18.0007M3 11.9444L4.53846 13.5L8 10M3 5.94444L4.53846 7.5L8 4M4.5 18H4.51M5 18C5 18.2761 4.77614 18.5 4.5 18.5C4.22386 18.5 4 18.2761 4 18C4 17.7239 4.22386 17.5 4.5 17.5C4.77614 17.5 5 17.7239 5 18Z"
-                  stroke="#1c6dd0"
-                  stroke-width="2"
+                  d="M13 4H8.8C7.11984 4 6.27976 4 5.63803 4.32698C5.07354 4.6146 4.6146 5.07354 4.32698 5.63803C4 6.27976 4 7.11984 4 8.8V15.2C4 16.8802 4 17.7202 4.32698 18.362C4.6146 18.9265 5.07354 19.3854 5.63803 19.673C6.27976 20 7.11984 20 8.8 20H15.2C16.8802 20 17.7202 20 18.362 19.673C18.9265 19.3854 19.3854 18.9265 19.673 18.362C20 17.7202 20 16.8802 20 15.2V11"
+                  stroke="#ffffff"
+                  stroke-width="1.152"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></path>
+                <path
+                  d="M4 16L8.29289 11.7071C8.68342 11.3166 9.31658 11.3166 9.70711 11.7071L13 15M13 15L15.7929 12.2071C16.1834 11.8166 16.8166 11.8166 17.2071 12.2071L20 15M13 15L15.25 17.25"
+                  stroke="#ffffff"
+                  stroke-width="1.152"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></path>
+                <path
+                  d="M18.5 3V5.5M18.5 8V5.5M18.5 5.5H16M18.5 5.5H21"
+                  stroke="#ffffff"
+                  stroke-width="1.152"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></path>
+              </g>
+            </svg>
+            <input type="file" id="fileInput" class="hidden" />
+            <h5
+              class="sm:text-xl text-base font-semibold text-grayText lg:mb-6 sm:ml-4 lg:ml-0"
+              id="userName"
+              spellcheck="false"
+              title="click for change"
+            >
+              Jaden
+            </h5>
+          </div>
+          <div
+            class="lg:flex-col items-center sm:relative sm:right-0 sm:[left:unset] sm:bg-transparent fixed bottom-0 right-0 left-0 bg-[#cfcece] px-3 flex-row flex z-30 h-14 lg:h-full sm:w-2/3 lg:w-full lg:p-0 flex-nowrap overflow-auto w-screen"
+          >
+            <ul
+              class="font-DmSans text-grayText font-semibold text-center lg:w-full h-2/3 text-sm flex flex-row lg:flex-col lg:h-[unset]"
+              id="pagesUl"
+            >
+              <li
+                class="sm:mr-2 mr-3 lg:border-none lg:rounded-none py-2 rounded-xl border border-solid border-borderGray px-3 lg:w-full w-auto hover:bg-white cursor-pointer transition-all duration-300 activeli pageElem"
+                id="mainLi"
+              >
+                Home
+              </li>
+            </ul>
+            <button
+              class="font-DmSans text-grayText font-semibold text-sm opacity-55 lg:mt-2 hover:opacity-80 ml-3 lg:ml-0 lg:text-xs text-nowrap lg:mb-5"
+              id="addBtn"
+            >
+              + Add a page
+            </button>
+          </div>
+        </div>
+        <div
+          class="bg-white h-full sm:h-[561px] lg:h-full w-full flex flex-col px-8 z-10"
+        >
+          <div
+            class="items-center justify-between flex w-full flex-row pt-7 pb-5 px-0 sm:px-4"
+          >
+            <div class="flex flex-row items-center">
+              <svg
+                width="30px"
+                height="30px"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g id="SVGRepo_bgCarrier" stroke-width="0" />
+                <g
+                  id="SVGRepo_tracerCarrier"
                   stroke-linecap="round"
                   stroke-linejoin="round"
                 />
-              </g>
-            </svg>
-            <h1
-              class="text-darkBlue font-bold text-xl sm:text-2xl lg:text-3xl ml-2"
-            >
-              To-Do List
-            </h1>
-          </div>
-          <div class="flex flex-col items-end justify-center">
-            <h2 id="dayElem" class="text-grayText text-sm sm:text-xl font-bold">
-              Wednesday
-            </h2>
-            <h4
-              id="timeElem"
-              class="text-Vsm sm:text-sm text-grayText font-bold"
-            >
-              10 March 2024
-            </h4>
-          </div>
-        </div>
-        <div class="w-full h-[1px] bg-borderGray rounded-full shadow-custom">
-          ‍
-        </div>
-        <div
-          class="flex flex-col sm:flex-row items-center w-full h-full gap-7 sm:p-5 pt-8 mb-16 sm:mb-0 relative"
-        >
-          <div
-            class="h-1/2 sm:h-full border max-w-96 lg:min-w-48 sm:min-w-44 border-borderGray border-solid rounded-3xl shadow-custom flex-1 flex flex-col overflow-hidden w-full"
-          >
-            <div
-              class="relative w-full border-b border-b-borderGray border-solid py-2 pl-4 flex flex-col justify-center items-start"
-            >
-              <h5 class="text-grayText text-xl font-semibold">To-do</h5>
-              <i
-                class="text-grayText text-[12px] -mt-1 font-semibold opacity-65"
-                id="countOfTasks"
-                >0 Tasks</i
+                <g id="SVGRepo_iconCarrier">
+                  <path
+                    d="M11 6L21 6.00072M11 12L21 12.0007M11 18L21 18.0007M3 11.9444L4.53846 13.5L8 10M3 5.94444L4.53846 7.5L8 4M4.5 18H4.51M5 18C5 18.2761 4.77614 18.5 4.5 18.5C4.22386 18.5 4 18.2761 4 18C4 17.7239 4.22386 17.5 4.5 17.5C4.77614 17.5 5 17.7239 5 18Z"
+                    stroke="#1c6dd0"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </g>
+              </svg>
+              <h1
+                class="text-darkBlue font-bold text-xl sm:text-2xl lg:text-3xl ml-2"
               >
-              <button
-                type="button"
-                id="addNewTodoBtn"
-                class="absolute right-6 -bottom-[14px] bg-darkBlue rounded-full w-8 h-8 overflow-hidden flex justify-center items-center hover:bg-[#1961b8] transition-all duration-200 z-20"
-              >
-                <img src="./images/addP.png" class="w-5 h-5" />
-              </button>
+                To-Do List
+              </h1>
             </div>
-            <ul
-              class="flex flex-col w-full h-[352px] items-center px-2 py-2 gap-1 overflow-y-auto"
-              id="toDoUl"
-            ></ul>
+            <div class="flex flex-col items-end justify-center">
+              <h2
+                id="dayElem"
+                class="text-grayText text-sm sm:text-xl font-bold"
+              >
+                Wednesday
+              </h2>
+              <h4
+                id="timeElem"
+                class="text-Vsm sm:text-sm text-grayText font-bold"
+              >
+                10 March 2024
+              </h4>
+            </div>
+          </div>
+          <div class="w-full h-[1px] bg-borderGray rounded-full shadow-custom">
+            ‍
           </div>
           <div
-            class="h-1/2 max-w-96 lg:min-w-48 sm:min-w-44 sm:h-full border border-borderGray border-solid rounded-3xl shadow-custom flex-1 flex flex-col overflow-hidden w-full"
+            class="flex flex-col sm:flex-row items-center w-full h-full gap-7 sm:p-5 pt-8 mb-16 sm:mb-0 relative"
           >
             <div
-              class="relative w-full border-b border-b-borderGray border-solid py-2 pl-4 flex flex-col justify-center items-start"
-            >
-              <h5 class="text-greenBlue text-xl font-semibold">Completed</h5>
-              <i
-                class="text-grayText text-[12px] -mt-1 font-semibold opacity-65"
-                id="countOfCompleted"
-                >0 Tasks</i
-              >
-            </div>
-            <ul
-              class="flex flex-col w-full h-[352px] items-center px-2 py-2 gap-1 overflow-y-auto"
-              id="completedUl"
-            ></ul>
-          </div>
-          <div
-            class="sm:h-full flex-1 flex flex-col justify-between sm:pt-9 w-full max-w-96 lg:min-w-48 sm:min-w-44"
-          >
-            <div
-              class="flex flex-col justify-center items-center gap-y-2 mb-8 w-full sm:mb-0"
-            >
-              <b class="text-grayText">You done :</b>
-              <div
-                class="w-full h-6 bg-borderGray rounded-md relative overflow-hidden"
-              >
-                <span
-                  class="absolute top-1/2 transform -translate-y-1/2 left-2 font-DmSans font-semibold text-white text-sm"
-                  id="progressPer"
-                  >0 %</span
-                >
-                <span
-                  class="h-full block w-0 bg-darkBlue transition-all duration-300"
-                  id="progressBg"
-                ></span>
-              </div>
-            </div>
-            <div
-              class="border pb-2 sm:pb-0 border-borderGray border-solid rounded-3xl shadow-custom flex flex-col opacity-70 overflow-hidden"
+              class="h-1/2 sm:h-full border max-w-96 lg:min-w-48 sm:min-w-44 border-borderGray border-solid rounded-3xl shadow-custom flex-1 flex flex-col overflow-hidden w-full"
             >
               <div
                 class="relative w-full border-b border-b-borderGray border-solid py-2 pl-4 flex flex-col justify-center items-start"
               >
-                <h5 class="text-grayText text-base font-semibold">
-                  Tomorrow's To-do
-                </h5>
+                <h5 class="text-grayText text-xl font-semibold">To-do</h5>
                 <i
                   class="text-grayText text-[12px] -mt-1 font-semibold opacity-65"
-                  id="countOfTmmrwTasks"
+                  id="countOfTasks"
                   >0 Tasks</i
                 >
                 <button
                   type="button"
-                  id="addNewTodo4TmmrwBtn"
-                  class="absolute right-6 -bottom-[14px] bg-darkBlue rounded-full w-8 h-8 overflow-hidden flex justify-center items-center hover:bg-[#1961b8] transition-all duration-200"
+                  id="addNewTodoBtn"
+                  class="absolute right-6 -bottom-[14px] bg-darkBlue rounded-full w-8 h-8 overflow-hidden flex justify-center items-center hover:bg-[#1961b8] transition-all duration-200 z-20"
                 >
                   <img src="./images/addP.png" class="w-5 h-5" />
                 </button>
               </div>
               <ul
-                class="flex flex-col w-full h-[206px] overflow-y-auto items-center px-2 py-2 gap-1"
-                id="tmmrwToDoUl"
+                class="flex flex-col w-full h-[352px] items-center px-2 py-2 gap-1 overflow-y-auto"
+                id="toDoUl"
               ></ul>
+            </div>
+            <div
+              class="h-1/2 max-w-96 lg:min-w-48 sm:min-w-44 sm:h-full border border-borderGray border-solid rounded-3xl shadow-custom flex-1 flex flex-col overflow-hidden w-full"
+            >
+              <div
+                class="relative w-full border-b border-b-borderGray border-solid py-2 pl-4 flex flex-col justify-center items-start"
+              >
+                <h5 class="text-greenBlue text-xl font-semibold">Completed</h5>
+                <i
+                  class="text-grayText text-[12px] -mt-1 font-semibold opacity-65"
+                  id="countOfCompleted"
+                  >0 Tasks</i
+                >
+              </div>
+              <ul
+                class="flex flex-col w-full h-[352px] items-center px-2 py-2 gap-1 overflow-y-auto"
+                id="completedUl"
+              ></ul>
+            </div>
+            <div
+              class="sm:h-full flex-1 flex flex-col justify-between sm:pt-9 w-full max-w-96 lg:min-w-48 sm:min-w-44"
+            >
+              <div
+                class="flex flex-col justify-center items-center gap-y-2 mb-8 w-full sm:mb-0"
+              >
+                <b class="text-grayText">You done :</b>
+                <div
+                  class="w-full h-6 bg-borderGray rounded-md relative overflow-hidden"
+                >
+                  <span
+                    class="absolute top-1/2 transform -translate-y-1/2 left-2 font-DmSans font-semibold text-white text-sm"
+                    id="progressPer"
+                    >0 %</span
+                  >
+                  <span
+                    class="h-full block w-0 bg-gradient-to-r from-darkBlue to-greenBlue transition-all duration-300"
+                    id="progressBg"
+                  ></span>
+                </div>
+              </div>
+              <div
+                class="border pb-2 sm:pb-0 border-borderGray border-solid rounded-3xl shadow-custom flex flex-col opacity-70 overflow-hidden"
+              >
+                <div
+                  class="relative w-full border-b border-b-borderGray border-solid py-2 pl-4 flex flex-col justify-center items-start"
+                >
+                  <h5 class="text-grayText text-base font-semibold">
+                    Tomorrow's To-do
+                  </h5>
+                  <i
+                    class="text-grayText text-[12px] -mt-1 font-semibold opacity-65"
+                    id="countOfTmmrwTasks"
+                    >0 Tasks</i
+                  >
+                  <button
+                    type="button"
+                    id="addNewTodo4TmmrwBtn"
+                    class="absolute right-6 -bottom-[14px] bg-darkBlue rounded-full w-8 h-8 overflow-hidden flex justify-center items-center hover:bg-[#1961b8] transition-all duration-200"
+                  >
+                    <img src="./images/addP.png" class="w-5 h-5" />
+                  </button>
+                </div>
+                <ul
+                  class="flex flex-col w-full h-[206px] overflow-y-auto items-center px-2 py-2 gap-1"
+                  id="tmmrwToDoUl"
+                ></ul>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <!------------------------------------ Page modul ------------------------------------>
-    <div
-      id="backdropDiv-Page"
-      class="w-screen h-screen bg-transparent backdrop-blur-[2px] backdrop-brightness-[.80] absolute top-0 right-0 hidden justify-center items-center z-30"
-    >
+      <!------------------------------------ Page modul ------------------------------------>
       <div
-        class="lg:w-[50rem] px-7 py-4 lg:py-6 rounded-2xl flex flex-col sm:flex-row items-center justify-center bg-white popup w-[80vw] sm:w-[unset]"
-        id="modul"
+        id="backdropDiv-Page"
+        class="w-screen h-screen bg-transparent backdrop-blur-[2px] backdrop-brightness-[.80] absolute top-0 right-0 hidden justify-center items-center z-30"
       >
-        <label class="font-semibold text-base lg:text-xl text-grayText"
-          >Enter your page's name :</label
+        <div
+          class="lg:w-[50rem] px-7 py-4 lg:py-6 rounded-2xl flex flex-col sm:flex-row items-center justify-center bg-white popup w-[80vw] sm:w-[unset]"
+          id="modul"
         >
-        <input
-          type="text"
-          placeholder="For example: Friends"
-          class="border border-solid border-borderGray bg-white2 lg:text-base text-sm py-[2px] px-3 lg:py-1 font-DmSans rounded-lg sm:ml-4 focus:outline-none sm:mr-2 my-3 w-full sm:w-[unset]"
-          id="inputNamePage"
-        />
-        <div class="flex flex-row items-center">
-          <button
-            type="button"
-            class="cursor-pointer rounded-lg text-white hover:text-darkBlue hover:bg-transparent bg-darkBlue transition-all duration-300 ease-[cubic-bezier(0,0.55,0.45,1)] mr-1 border border-solid border-borderGray py-[2px] sm:py-1 px-3 font-DmSans font-semibold"
-            id="addNamePageBtn"
+          <label class="font-semibold text-base lg:text-xl text-grayText"
+            >Enter your page's name :</label
           >
-            Add
-          </button>
-          <button
-            type="button"
-            class="cursor-pointer rounded-lg text-grayText hover:text-white hover:bg-red-300 bg-transparent transition-all duration-300 ease-[cubic-bezier(0,0.55,0.45,1)] mr-1 border border-solid border-borderGray py-[2px] sm:py-1 px-3 font-DmSans font-semibold"
-            id="closeModulBoxBtn"
-          >
-            Close
-          </button>
+          <input
+            type="text"
+            placeholder="For example: Friends"
+            class="border border-solid border-borderGray bg-white2 lg:text-base text-sm py-[2px] px-3 lg:py-1 font-DmSans rounded-lg sm:ml-4 focus:outline-none sm:mr-2 my-3 w-full sm:w-[unset]"
+            id="inputNamePage"
+          />
+          <div class="flex flex-row items-center">
+            <button
+              type="button"
+              class="cursor-pointer rounded-lg text-white hover:text-darkBlue hover:bg-transparent bg-darkBlue transition-all duration-300 ease-[cubic-bezier(0,0.55,0.45,1)] mr-1 border border-solid border-borderGray py-[2px] sm:py-1 px-3 font-DmSans font-semibold"
+              id="addNamePageBtn"
+            >
+              Add
+            </button>
+            <button
+              type="button"
+              class="cursor-pointer rounded-lg text-grayText hover:text-white hover:bg-red-300 bg-transparent transition-all duration-300 ease-[cubic-bezier(0,0.55,0.45,1)] mr-1 border border-solid border-borderGray py-[2px] sm:py-1 px-3 font-DmSans font-semibold"
+              id="closeModulBoxBtn"
+            >
+              Close
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-    <!------------------------------------------------------------------------------------>
-    <!------------------------------------ To-Do modul ------------------------------------>
-    <div
-      id="backdropDiv-toDo"
-      class="w-screen h-screen bg-transparent backdrop-blur-[2px] backdrop-brightness-[.80] absolute top-0 right-0 hidden justify-center items-center z-30"
-    >
+      <!------------------------------------------------------------------------------------>
+      <!------------------------------------ To-Do modul ------------------------------------>
       <div
-        class="lg:w-[50rem] px-5 sm:px-7 py-4 lg:py-6 rounded-2xl flex flex-col sm:flex-row items-center justify-center bg-white popup w-[80vw] sm:w-[unset]"
-        id="toDoModul"
+        id="backdropDiv-toDo"
+        class="w-screen h-screen bg-transparent backdrop-blur-[2px] backdrop-brightness-[.80] absolute top-0 right-0 hidden justify-center items-center z-30"
       >
-        <label
-          class="font-semibold text-sm text-nowrap sm:text-base lg:text-xl text-grayText"
-          >Enter your new To-Do's name :</label
+        <div
+          class="lg:w-[50rem] px-5 sm:px-7 py-4 lg:py-6 rounded-2xl flex flex-col sm:flex-row items-center justify-center bg-white popup w-[80vw] sm:w-[unset]"
+          id="toDoModul"
         >
-        <input
-          type="text"
-          placeholder="For example: Gym"
-          class="border border-solid border-borderGray bg-white2 lg:text-base text-sm py-[2px] px-3 lg:py-1 font-DmSans rounded-lg sm:ml-4 focus:outline-none sm:mr-2 my-3 w-full sm:w-[unset]"
-          id="inputNewToDo"
-        />
-        <div class="flex flex-row items-center">
-          <button
-            type="button"
-            class="cursor-pointer rounded-lg text-white hover:text-darkBlue hover:bg-transparent bg-darkBlue transition-all duration-300 ease-[cubic-bezier(0,0.55,0.45,1)] mr-1 border border-solid border-borderGray py-[2px] sm:py-1 px-3 font-DmSans font-semibold"
-            id="applyNewToDo"
+          <label
+            class="font-semibold text-sm text-nowrap sm:text-base lg:text-xl text-grayText"
+            >Enter your new To-Do's name :</label
           >
-            Add
-          </button>
-          <button
-            type="button"
-            class="cursor-pointer rounded-lg text-grayText hover:text-white hover:bg-red-300 bg-transparent transition-all duration-300 ease-[cubic-bezier(0,0.55,0.45,1)] mr-1 border border-solid border-borderGray py-[2px] sm:py-1 px-3 font-DmSans font-semibold"
-            id="closeToDoModulBoxBtn"
-          >
-            Close
-          </button>
+          <input
+            type="text"
+            placeholder="For example: Gym"
+            class="border border-solid border-borderGray bg-white2 lg:text-base text-sm py-[2px] px-3 lg:py-1 font-DmSans rounded-lg sm:ml-4 focus:outline-none sm:mr-2 my-3 w-full sm:w-[unset]"
+            id="inputNewToDo"
+          />
+          <div class="flex flex-row items-center">
+            <button
+              type="button"
+              class="cursor-pointer rounded-lg text-white hover:text-darkBlue hover:bg-transparent bg-darkBlue transition-all duration-300 ease-[cubic-bezier(0,0.55,0.45,1)] mr-1 border border-solid border-borderGray py-[2px] sm:py-1 px-3 font-DmSans font-semibold"
+              id="applyNewToDo"
+            >
+              Add
+            </button>
+            <button
+              type="button"
+              class="cursor-pointer rounded-lg text-grayText hover:text-white hover:bg-red-300 bg-transparent transition-all duration-300 ease-[cubic-bezier(0,0.55,0.45,1)] mr-1 border border-solid border-borderGray py-[2px] sm:py-1 px-3 font-DmSans font-semibold"
+              id="closeToDoModulBoxBtn"
+            >
+              Close
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-    <!------------------------------------------------------------------------------------>
-    <!-------------------------------- Tmmrw To-Do modul --------------------------------->
-    <div
-      id="backdropDiv-tmmrwTodo"
-      class="w-screen h-screen bg-transparent backdrop-blur-[2px] backdrop-brightness-[.80] absolute bottom-0 right-0 hidden justify-center items-center z-30"
-    >
+      <!------------------------------------------------------------------------------------>
+      <!-------------------------------- Tmmrw To-Do modul --------------------------------->
       <div
-        class="mx-5 lg:w-[50rem] px-5 sm:px-7 py-4 lg:py-6 rounded-2xl flex flex-col sm:flex-row items-center justify-center bg-white popup w-[80vw] sm:w-[unset]"
-        id="tmmrwToDoModul"
+        id="backdropDiv-tmmrwTodo"
+        class="w-screen h-screen bg-transparent backdrop-blur-[2px] backdrop-brightness-[.80] absolute bottom-0 right-0 hidden justify-center items-center z-30"
       >
-        <label
-          class="font-semibold text-sm md:text-base lg:text-xl text-grayText md:text-nowrap text-balance sm:text-wrap"
-          >Enter your new Tomorrow To-Do's name :</label
+        <div
+          class="mx-5 lg:w-[50rem] px-5 sm:px-7 py-4 lg:py-6 rounded-2xl flex flex-col sm:flex-row items-center justify-center bg-white popup w-[80vw] sm:w-[unset]"
+          id="tmmrwToDoModul"
         >
-        <input
-          type="text"
-          placeholder="F.e: Water plants"
-          class="border border-solid border-borderGray bg-white2 lg:text-base text-sm py-[2px] px-3 lg:py-1 font-DmSans rounded-lg sm:ml-4 focus:outline-none sm:mr-2 my-3 w-full sm:w-[unset]"
-          autofocus
-          id="inputTmmrwNewToDo"
-        />
-        <div class="flex flex-row items-center">
-          <button
-            type="button"
-            class="cursor-pointer rounded-lg text-white hover:text-darkBlue hover:bg-transparent bg-darkBlue transition-all duration-300 ease-[cubic-bezier(0,0.55,0.45,1)] mr-1 border border-solid border-borderGray py-[2px] sm:py-1 px-3 font-DmSans font-semibold"
-            id="applyTmmrwNewToDo"
+          <label
+            class="font-semibold text-sm md:text-base lg:text-xl text-grayText md:text-nowrap text-balance sm:text-wrap"
+            >Enter your new Tomorrow To-Do's name :</label
           >
-            Add
-          </button>
-          <button
-            type="button"
-            class="cursor-pointer rounded-lg text-grayText hover:text-white hover:bg-red-300 bg-transparent transition-all duration-300 ease-[cubic-bezier(0,0.55,0.45,1)] mr-1 border border-solid border-borderGray py-[2px] sm:py-1 px-3 font-DmSans font-semibold"
-            id="closeTmmrwToDoModulBoxBtn"
-          >
-            Close
-          </button>
+          <input
+            type="text"
+            placeholder="F.e: Water plants"
+            class="border border-solid border-borderGray bg-white2 lg:text-base text-sm py-[2px] px-3 lg:py-1 font-DmSans rounded-lg sm:ml-4 focus:outline-none sm:mr-2 my-3 w-full sm:w-[unset]"
+            autofocus
+            id="inputTmmrwNewToDo"
+          />
+          <div class="flex flex-row items-center">
+            <button
+              type="button"
+              class="cursor-pointer rounded-lg text-white hover:text-darkBlue hover:bg-transparent bg-darkBlue transition-all duration-300 ease-[cubic-bezier(0,0.55,0.45,1)] mr-1 border border-solid border-borderGray py-[2px] sm:py-1 px-3 font-DmSans font-semibold"
+              id="applyTmmrwNewToDo"
+            >
+              Add
+            </button>
+            <button
+              type="button"
+              class="cursor-pointer rounded-lg text-grayText hover:text-white hover:bg-red-300 bg-transparent transition-all duration-300 ease-[cubic-bezier(0,0.55,0.45,1)] mr-1 border border-solid border-borderGray py-[2px] sm:py-1 px-3 font-DmSans font-semibold"
+              id="closeTmmrwToDoModulBoxBtn"
+            >
+              Close
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-    <!------------------------------------------------------------------------------------>
-    <!-------------------------------------------Profile Picture ModalError----------------------------------------->
-    <div
-      class="w-screen h-screen absolute top-0 right-0 backdrop-brightness-75 backdrop-blur-[1px] z-40 justify-center hidden"
-      id="backdropDiv-ProfPic"
-    >
+      <!------------------------------------------------------------------------------------>
+      <!-------------------------------------------Profile Picture ModalError----------------------------------------->
       <div
-        class="bg-white flex justify-center items-center px-3 py-2 absolute top-5 rounded-lg fadeInDown"
+        class="w-screen h-screen absolute top-0 right-0 backdrop-brightness-75 backdrop-blur-[1px] z-40 justify-center hidden"
+        id="backdropDiv-ProfPic"
       >
-        <h1 class="font-DmSans font-semibold text-red-400 sm:text-2xl">
-          Format must be PNG or JPEG
-        </h1>
+        <div
+          class="bg-white flex justify-center items-center px-3 py-2 absolute top-5 rounded-lg fadeInDown"
+        >
+          <h1 class="font-DmSans font-semibold text-red-400 sm:text-2xl">
+            Format must be PNG or JPEG
+          </h1>
+        </div>
       </div>
     </div>
   </body>

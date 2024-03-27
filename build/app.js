@@ -225,7 +225,9 @@ addNamePageBtn.addEventListener('click', () =>{
     } else{
         inputNamePage.style.border = '1px solid red'
         inputNamePage.classList.add('shakeInput')
-        borderFixerFnc(inputNamePage)
+        
+        inputNamePage.addEventListener('keyup', () => borderFixerFnc(inputNamePage))
+
         timeOutForAni(inputNamePage)
     }
 })
@@ -239,7 +241,9 @@ applyNewToDo.addEventListener('click', () =>{
     } else{
         inputNewToDo.style.border = '1px solid red'
         inputNewToDo.classList.add('shakeInput')
-        borderFixerFnc(inputNewToDo)
+        
+        inputNewToDo.addEventListener('keyup', () => borderFixerFnc(inputNewToDo))
+
         timeOutForAni(inputNewToDo)
     }
 })
@@ -252,7 +256,9 @@ applyTmmrwNewToDo.addEventListener('click', () =>{
     } else{
         inputTmmrwNewToDo.style.border = '1px solid red'
         inputTmmrwNewToDo.classList.add('shakeInput')
-        borderFixerFnc(inputTmmrwNewToDo)
+        
+        inputTmmrwNewToDo.addEventListener('keydown', () => borderFixerFnc(inputTmmrwNewToDo))
+
         timeOutForAni(inputTmmrwNewToDo)
     }
 })
@@ -322,14 +328,17 @@ inputTmmrwNewToDo.addEventListener('keyup', (e) =>{
 
 closeModulBoxBtn.addEventListener('click', () =>{
     closeModulFnc()
+    borderFixerFnc(inputNamePage)
 })
 
 closeToDoModulBoxBtn.addEventListener('click', () =>{
     closeToDoModulFnc()
+    borderFixerFnc(inputNewToDo)
 })
 
 closeTmmrwToDoModulBoxBtn.addEventListener('click', () =>{
     closeTmmrwToDoModulBoxFnc()
+    borderFixerFnc(inputTmmrwNewToDo)
 })
 
 
@@ -384,7 +393,7 @@ tmmrwToDoUl.addEventListener('click', (e)=>{
         return false
     }
     if (checkBox.classList.contains('checked')){
-        let textOfElem = ev.target.nextElementSibling.textContent
+        let textOfElem = e.target.nextElementSibling.textContent
         localRemover(textOfElem, 'savedItemsTmmrw')
         e.target.parentElement.parentElement.remove()
     } else{
@@ -406,6 +415,7 @@ function localRemover(item , storeName){
         }
 }
 
+// --------------------------------------------- Close Modal Fncs
 
 function closeModulFnc() {
     backdropDivPage.classList.add('hidden');
@@ -434,7 +444,7 @@ function closeTmmrwToDoModulBoxFnc() {
     inputTmmrwNewToDo.value = ''
 }
 
-// add new li fncs
+// --------------------------------------------- Add New Li Fncs
 
 function addNewLiFnc(){
     let newLi = document.createElement('li')
@@ -470,8 +480,9 @@ function addNewLiTodoFnc(content){
     checkBox.classList.add('cursor-pointer', 'mr-2')
     let newLi = document.createElement('li')
     newSpan.innerHTML = content
-    newLi.classList.add('relative', 'w-full' ,'bg-lightBlue' ,'rounded-md' ,'shadow-custom4Li' ,'px-3' ,'py-2' ,'flex' , 'flex-row-reverse', 'justify-end' ,'items-center', `liElem`, 'transition-all', 'duration-300', 'hover:bg-[#e4efff]', 'ease-[cubic-bezier(0,0.55,0.45,1)]');
+    newLi.classList.add('relative', 'w-full' ,'bg-lightBlue' ,'rounded-md' ,'shadow-custom4Li' ,'pr-8' , 'px-3' ,'py-2' ,'flex' , 'flex-row-reverse', 'justify-end' ,'items-center', `liElem`, 'transition-all', 'duration-300', 'hover:bg-[#e4efff]', 'ease-[cubic-bezier(0,0.55,0.45,1)]');
     newLabel.append(checkBox, newSpan, newDiv)
+    newLi.setAttribute('title', 'Click for edit')
     let newSvgDiv = $.createElement('div')
     newSvgDiv.innerHTML = `<svg viewBox="0 0 24 24" fill="none" class="w-full h-full">
         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -482,6 +493,13 @@ function addNewLiTodoFnc(content){
         </g></svg>`
     newSvgDiv.classList.add('w-6', 'h-6', 'absolute', 'right-2', 'cursor-pointer', 'hidden')
     newSpan.setAttribute('spellcheck', 'false')
+
+    if (content.length > 9){
+        newSpan.style.fontSize = '13px'
+    } else {
+        newSpan.style.fontSize = '16px'
+    }
+
     newLi.appendChild(newSvgDiv)
     newLi.append(newLabel)
     toDoUl.append(newLi)
@@ -500,8 +518,6 @@ function addNewLiTodoFnc(content){
         newSvgDiv.classList.add('hidden')
         newSvgDiv.classList.remove('block')
     })
-
-
 }
 
 function addNewToDoTmmrwLiFnc(content){
@@ -520,17 +536,19 @@ function addNewToDoTmmrwLiFnc(content){
     newLabel.append(checkBox, newSpan, newDiv)
     newLi.append(newLabel)
     tmmrwToDoUl.append(newLi)
+
     inputTmmrwNewToDo.value = ''
+
     localSaveTmmrwFnc()
 }
 
+// --------------------------------------------- Border Input Fixer Fnc
 
 function borderFixerFnc(elem){
-    elem.addEventListener('keyup', ()=>{
-        elem.style.border = '1px solid #e4e4e4'
-    })
+    elem.style.border = '1px solid #e4e4e4'
 }
 
+// --------------------------------------------- Count Of Tasks Fncs
 
 function countOfTasksFnc(elem){
     elem.innerHTML = `${document.querySelectorAll(`.liElem`).length} Tasks`
@@ -620,6 +638,8 @@ function deleteSvgDivFnc(svg){
 }
 
 
+// --------------------------------------------------------- Edit Li Fnc
+
 function editTodoFnc(elem, spanElem){
     elem.addEventListener('click', (e)=>{
         if (e.target.nodeName === 'LI' && e.target.parentElement.id == 'toDoUl'){
@@ -635,16 +655,21 @@ function editTodoFnc(elem, spanElem){
             spanElem.addEventListener('blur', ()=>{
                 if (spanElem){
                     localSaveLiFnc()
-                } else{
-                    spanElem.innerHTML = 'To Do'
+                    if (spanElem.innerHTML == ''){
+                        spanElem.innerHTML = 'To Do'
+                    }
+                }
+            })
+            spanElem.addEventListener('keyup', ()=>{
+                if (spanElem.textContent.length > 9){
+                    spanElem.style.fontSize = '13px'
+                } else {
+                    spanElem.style.fontSize = '16px'
                 }
             })
         }
     })
 }
-
-
-
 
 // --------------------------------------------------------- window Load and localSver Fncs
 
@@ -675,6 +700,10 @@ function localSaveTmmrwFnc(){
 
 
 window.addEventListener('load', ()=>{
+
+    $.querySelector("#loading-container").style.display = "none"
+    $.querySelector("#main-content").style.display = "block"
+
     let userContent = JSON.parse(localStorage.getItem('username'))
     if (userContent){
         userName.innerHTML = userContent
@@ -759,4 +788,3 @@ window.addEventListener('load', ()=>{
     }
 
 })
-

@@ -702,7 +702,7 @@ function localSaveTmmrwFnc(){
 window.addEventListener('load', ()=>{
 
     $.querySelector("#loading-container").style.display = "none"
-    $.querySelector("#main-content").style.display = "block"
+    containerDiv.style.display = "flex"
 
     let userContent = JSON.parse(localStorage.getItem('username'))
     if (userContent){

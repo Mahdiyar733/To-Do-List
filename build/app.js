@@ -481,7 +481,7 @@ function addNewLiTodoFnc(content){
     checkBox.classList.add('cursor-pointer', 'mr-2')
     let newLi = document.createElement('li')
     newSpan.innerHTML = content
-    newLi.classList.add('relative', 'w-full' ,'bg-lightBlue' ,'rounded-md' ,'shadow-custom4Li' ,'pr-8' , 'px-3' ,'py-2' ,'flex' , 'flex-row-reverse', 'justify-end' ,'items-center', `liElem`, 'transition-all', 'duration-300', 'hover:bg-[#e4efff]', 'ease-[cubic-bezier(0,0.55,0.45,1)]');
+    newLi.classList.add('min-h-10', 'h-auto', 'relative', 'w-full' ,'bg-lightBlue' ,'rounded-md' ,'shadow-custom4Li' ,'pr-8' , 'px-3' ,'py-2' ,'flex' , 'flex-row-reverse', 'justify-end' ,'items-center', `liElem`, 'transition-all', 'duration-300', 'hover:bg-[#e4efff]', 'ease-[cubic-bezier(0,0.55,0.45,1)]');
     newLabel.append(checkBox, newSpan, newDiv)
     newLi.setAttribute('title', 'Click for edit')
     let newSvgDiv = $.createElement('div')
@@ -655,9 +655,11 @@ function editTodoFnc(elem, spanElem){
             spanElem.style.outline = 'none'
             spanElem.addEventListener('blur', ()=>{
                 if (spanElem){
-                    localSaveLiFnc()
                     if (spanElem.innerHTML == ''){
                         spanElem.innerHTML = 'To Do'
+                        localSaveLiFnc()
+                    } else {
+                        localSaveLiFnc()
                     }
                 }
             })

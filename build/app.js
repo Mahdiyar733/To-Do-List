@@ -328,17 +328,14 @@ inputTmmrwNewToDo.addEventListener('keyup', (e) =>{
 
 closeModulBoxBtn.addEventListener('click', () =>{
     closeModulFnc()
-    borderFixerFnc(inputNamePage)
 })
 
 closeToDoModulBoxBtn.addEventListener('click', () =>{
     closeToDoModulFnc()
-    borderFixerFnc(inputNewToDo)
 })
 
 closeTmmrwToDoModulBoxBtn.addEventListener('click', () =>{
     closeTmmrwToDoModulBoxFnc()
-    borderFixerFnc(inputTmmrwNewToDo)
 })
 
 
@@ -424,6 +421,8 @@ function closeModulFnc() {
     body.classList.remove('overflow-y-hidden', 'h-screen')
     inputNamePage.classList.remove('shakeInput')
     inputNamePage.value = ''
+    borderFixerFnc(inputNamePage)
+   
 }
 
 function closeToDoModulFnc() {
@@ -433,6 +432,7 @@ function closeToDoModulFnc() {
     body.classList.remove('overflow-y-hidden', 'h-screen')
     inputNewToDo.classList.remove('shakeInput')
     inputNewToDo.value = ''
+    borderFixerFnc(inputNewToDo)
 }
 
 function closeTmmrwToDoModulBoxFnc() {
@@ -442,6 +442,7 @@ function closeTmmrwToDoModulBoxFnc() {
     body.classList.remove('overflow-y-hidden')
     inputTmmrwNewToDo.classList.remove('shakeInput')
     inputTmmrwNewToDo.value = ''
+    borderFixerFnc(inputTmmrwNewToDo)
 }
 
 // --------------------------------------------- Add New Li Fncs
@@ -702,7 +703,7 @@ function localSaveTmmrwFnc(){
 window.addEventListener('load', ()=>{
 
     $.querySelector("#loading-container").style.display = "none"
-    containerDiv.style.display = "flex"
+    containerDiv.style.display = 'flex'
 
     let userContent = JSON.parse(localStorage.getItem('username'))
     if (userContent){

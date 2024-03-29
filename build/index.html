@@ -137,16 +137,11 @@
               Home
             </li>
           </ul>
-          <button
-            class="font-DmSans text-grayText font-semibold text-sm opacity-55 lg:mt-2 hover:opacity-80 ml-3 lg:ml-0 lg:text-xs text-nowrap lg:mb-5"
-            id="addBtn"
-          >
-            + Add a page
-          </button>
         </div>
       </div>
       <div
         class="bg-white h-full sm:h-[561px] lg:h-full w-full flex flex-col px-8 z-10"
+        id="contentDiv"
       >
         <div
           class="items-center justify-between flex w-full flex-row pt-7 pb-5 px-0 sm:px-4"
@@ -294,43 +289,6 @@
         </div>
       </div>
     </div>
-    <!------------------------------------ Page modul ------------------------------------>
-    <div
-      id="backdropDiv-Page"
-      class="w-screen h-screen bg-transparent backdrop-blur-[2px] backdrop-brightness-[.80] absolute top-0 right-0 hidden justify-center items-center z-30"
-    >
-      <div
-        class="lg:w-[50rem] px-7 py-4 lg:py-6 rounded-2xl flex flex-col sm:flex-row items-center justify-center bg-white popup w-[80vw] sm:w-[unset]"
-        id="modul"
-      >
-        <label class="font-semibold text-base lg:text-xl text-grayText"
-          >Enter your page's name :</label
-        >
-        <input
-          type="text"
-          placeholder="For example: Friends"
-          class="border border-solid border-borderGray bg-white2 lg:text-base text-sm py-[2px] px-3 lg:py-1 font-DmSans rounded-lg sm:ml-4 focus:outline-none sm:mr-2 my-3 w-full sm:w-[unset]"
-          id="inputNamePage"
-        />
-        <div class="flex flex-row items-center">
-          <button
-            type="button"
-            class="cursor-pointer rounded-lg text-white hover:text-darkBlue hover:bg-transparent bg-darkBlue transition-all duration-300 ease-[cubic-bezier(0,0.55,0.45,1)] mr-1 border border-solid border-borderGray py-[2px] sm:py-1 px-3 font-DmSans font-semibold"
-            id="addNamePageBtn"
-          >
-            Add
-          </button>
-          <button
-            type="button"
-            class="cursor-pointer rounded-lg text-grayText hover:text-white hover:bg-red-300 bg-transparent transition-all duration-300 ease-[cubic-bezier(0,0.55,0.45,1)] mr-1 border border-solid border-borderGray py-[2px] sm:py-1 px-3 font-DmSans font-semibold"
-            id="closeModulBoxBtn"
-          >
-            Close
-          </button>
-        </div>
-      </div>
-    </div>
-    <!------------------------------------------------------------------------------------>
     <!------------------------------------ To-Do modul ------------------------------------>
     <div
       id="backdropDiv-toDo"

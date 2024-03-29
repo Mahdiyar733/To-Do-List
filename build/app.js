@@ -1,9 +1,7 @@
 const $ = document
-const addPageBtn = $.querySelector('#addBtn')
 const containerDiv = $.querySelector('#container')
-const ulPages = $.querySelector('#pagesUl')
-const addNamePageBtn = $.querySelector('#addNamePageBtn')
 const body = $.body
+const content = $.querySelector('#contentDiv')
 const userName = $.querySelector('#userName')
 const profilePic = $.querySelector('#profilePic')
 const fileInput = $.querySelector('#fileInput')
@@ -12,15 +10,12 @@ const svgPic = $.querySelector('#svgPic')
 const modulBox = $.querySelector('#modul')
 const toDoModul = $.querySelector('#toDoModul')
 const tmmrwToDoModul = $.querySelector('#tmmrwToDoModul')
-const backdropDivPage = $.querySelector('#backdropDiv-Page')
 const backdropDivTodo = $.querySelector('#backdropDiv-toDo')
 const backdropDivTmmrwTodo = $.querySelector('#backdropDiv-tmmrwTodo')
 const applyNewToDo = $.querySelector('#applyNewToDo')
 const applyTmmrwNewToDo = $.querySelector('#applyTmmrwNewToDo')
-const closeModulBoxBtn = $.querySelector('#closeModulBoxBtn')
 const closeToDoModulBoxBtn = $.querySelector('#closeToDoModulBoxBtn')
 const closeTmmrwToDoModulBoxBtn = $.querySelector('#closeTmmrwToDoModulBoxBtn')
-const inputNamePage = $.querySelector('#inputNamePage')
 const inputNewToDo = $.querySelector('#inputNewToDo')
 const inputTmmrwNewToDo = $.querySelector('#inputTmmrwNewToDo')
 const home = $.querySelector('#home')
@@ -40,7 +35,9 @@ const progressPer = $.querySelector('#progressPer')
 const progressBg = $.querySelector('#progressBg')
 
 
+
 // --------------------------------------------------------------------------------- Day reset
+
 
 const currentDay = new Date().getDate()
 window.addEventListener('load', ()=>{
@@ -62,7 +59,9 @@ window.addEventListener('load', ()=>{
     }
 })
 
+
 // --------------------------------------------------------------------------------------- Profile Photo Handler
+
 
 profilePic.addEventListener('click', ()=>{
     fileInput.click()
@@ -129,7 +128,9 @@ svgPic.addEventListener('mouseout', () =>{
     svgPic.classList.add('hidden')
 })
 
+
 // ---------------------------------------------------------------------------------------- UserName Handler
+
 
 userName.textContent = userName.textContent.trim()
 
@@ -145,6 +146,12 @@ userName.addEventListener('mouseout', ()=>{
 userName.addEventListener('click', ()=>{
     if (userName.innerHTML.trim().length < 11){
         userName.contentEditable = 'true'
+        const range = $.createRange()
+        const selection = window.getSelection()
+        range.selectNodeContents(userName)
+        range.collapse(false)
+        selection.removeAllRanges()
+        selection.addRange(range)
         userName.focus()
         userName.style.outline = 'none'
     } else {
@@ -181,18 +188,9 @@ setInterval(()=>{
     }
 }, 500)
 
+
 // --------------------------------------------------------------------------------------- modul and ToDo Handlers
 
-addPageBtn.addEventListener('click', () =>{
-    window.scrollTo(0,0)
-    backdropDivPage.classList.add('flex')
-    backdropDivPage.classList.remove('hidden')
-    document.documentElement.classList.add('overflow-y-hidden' , 'h-screen')
-    body.classList.add('overflow-y-hidden', 'h-screen')
-    setTimeout(()=>{
-        inputNamePage.focus()
-    }, 700)
-})
 
 addNewTodoBtn.addEventListener('click', () =>{
     window.scrollTo(0,0)
@@ -216,21 +214,6 @@ addNewToDoTmmrwBtn.addEventListener('click', () =>{
     },500)
 })
 
-
-addNamePageBtn.addEventListener('click', () =>{
-    if (inputNamePage.value.trim() && inputNamePage.value.length < 11){
-        addNewLiFnc()
-        pageLiFnc()
-        closeModulFnc()
-    } else{
-        inputNamePage.style.border = '1px solid red'
-        inputNamePage.classList.add('shakeInput')
-        
-        inputNamePage.addEventListener('keyup', () => borderFixerFnc(inputNamePage))
-
-        timeOutForAni(inputNamePage)
-    }
-})
 
 applyNewToDo.addEventListener('click', () =>{
     if (inputNewToDo.value.trim()){     
@@ -270,37 +253,12 @@ backdropDivTodo.addEventListener('click', (e) =>{
     }
 })
 
-backdropDivPage.addEventListener('click', (e) =>{
-    if (e.target.id == 'backdropDiv-Page'){
-        closeModulFnc()
-    }
-})
-
 backdropDivTmmrwTodo.addEventListener('click', (e) =>{
     if (e.target.id == 'backdropDiv-tmmrwTodo'){
         closeTmmrwToDoModulBoxFnc()
     }
 })
 
-
-inputNamePage.addEventListener('keyup', (e) =>{
-    if (e.keyCode == 13){
-        if(inputNamePage.value.length < 11 && inputNamePage.value.trim()){
-            addNewLiFnc()
-            pageLiFnc()
-            closeModulFnc()
-            progressFnc()
-        } else{
-            inputNamePage.style.border = '1px solid red'
-            inputNamePage.classList.add('shakeInput')
-            timeOutForAni(inputNamePage)
-        }
-    }
-
-    if (e.keyCode == 27){
-        closeModulFnc()
-    }
-})
 
 inputNewToDo.addEventListener('keyup', (e) =>{
     if (e.keyCode == 13){
@@ -325,10 +283,6 @@ inputTmmrwNewToDo.addEventListener('keyup', (e) =>{
     }
 })
 
-
-closeModulBoxBtn.addEventListener('click', () =>{
-    closeModulFnc()
-})
 
 closeToDoModulBoxBtn.addEventListener('click', () =>{
     closeToDoModulFnc()
@@ -399,7 +353,9 @@ tmmrwToDoUl.addEventListener('click', (e)=>{
     countOfTmmrwTasksFnc(countOfTmmrwTasks)
 })
 
+
 //------------------------------------------------------- functions --------------------------------------------------------//
+
 
 function localRemover(item , storeName){
         let arraySavedItems = Array.from(JSON.parse(localStorage.getItem(storeName)))
@@ -412,18 +368,9 @@ function localRemover(item , storeName){
         }
 }
 
+
 // --------------------------------------------- Close Modal Fncs
 
-function closeModulFnc() {
-    backdropDivPage.classList.add('hidden');
-    backdropDivPage.classList.remove('flex');
-    document.documentElement.classList.remove('overflow-y-hidden' , 'h-screen')
-    body.classList.remove('overflow-y-hidden', 'h-screen')
-    inputNamePage.classList.remove('shakeInput')
-    inputNamePage.value = ''
-    borderFixerFnc(inputNamePage)
-   
-}
 
 function closeToDoModulFnc() {
     backdropDivTodo.classList.add('hidden');
@@ -445,7 +392,9 @@ function closeTmmrwToDoModulBoxFnc() {
     borderFixerFnc(inputTmmrwNewToDo)
 }
 
+
 // --------------------------------------------- Add New Li Fncs
+
 
 function addNewLiFnc(){
     let newLi = document.createElement('li')
@@ -543,13 +492,17 @@ function addNewToDoTmmrwLiFnc(content){
     localSaveTmmrwFnc()
 }
 
+
 // --------------------------------------------- Border Input Fixer Fnc
+
 
 function borderFixerFnc(elem){
     elem.style.border = '1px solid #e4e4e4'
 }
 
+
 // --------------------------------------------- Count Of Tasks Fncs
+
 
 function countOfTasksFnc(elem){
     elem.innerHTML = `${document.querySelectorAll(`.liElem`).length} Tasks`
@@ -571,11 +524,17 @@ function timeOutForAni(elem){
 }
 
 
+// --------------------------------------------- Progress Fnc
+
+
 function progressFnc(){
         let progressNum = Math.floor((completedUl.childElementCount / (completedUl.childElementCount + toDoUl.childElementCount)) * 100)
         progressPer.innerHTML = `${progressNum} %`
         progressBg.style.width = `${progressNum}%`
 }
+
+
+// --------------------------------------------- delet Li Fnc
 
 
 function deleteSvgDivFnc(svg){
@@ -641,6 +600,7 @@ function deleteSvgDivFnc(svg){
 
 // --------------------------------------------------------- Edit Li Fnc
 
+
 function editTodoFnc(elem, spanElem){
     elem.addEventListener('click', (e)=>{
         if (e.target.nodeName === 'LI' && e.target.parentElement.id == 'toDoUl'){
@@ -674,7 +634,9 @@ function editTodoFnc(elem, spanElem){
     })
 }
 
+
 // --------------------------------------------------------- window Load and localSver Fncs
+
 
 window.addEventListener('load', () =>{
     let date = new Date()
@@ -791,3 +753,5 @@ window.addEventListener('load', ()=>{
     }
 
 })
+
+

@@ -748,24 +748,16 @@ video {
   height: 352px;
 }
 
+.h-auto {
+  height: auto;
+}
+
 .h-full {
   height: 100%;
 }
 
 .h-screen {
   height: 100vh;
-}
-
-.h-auto {
-  height: auto;
-}
-
-.min-h-5 {
-  min-height: 1.25rem;
-}
-
-.min-h-7 {
-  min-height: 1.75rem;
 }
 
 .min-h-10 {
